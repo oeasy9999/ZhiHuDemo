@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">ZhiHuDemo</string>
+  <string name="zhihu">知乎日报</string>
 </resources>
