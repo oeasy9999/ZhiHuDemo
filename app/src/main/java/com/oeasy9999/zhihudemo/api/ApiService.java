@@ -13,6 +13,7 @@ public class ApiService {
     return RetrofitBuilder.get().retrofit();
   }
 
+  //1.启动界面图像获取
   public static SplashService createSplashService() {
     return retrofit().create(SplashService.class);
   }

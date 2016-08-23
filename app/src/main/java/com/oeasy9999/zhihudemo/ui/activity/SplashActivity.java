@@ -13,7 +13,6 @@ import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.api.ApiService;
 import com.oeasy9999.zhihudemo.api.service.SplashService;
 import com.oeasy9999.zhihudemo.model.entity.SplashImage;
-import com.squareup.picasso.Picasso;
 import retrofit2.Call;
 
 /**
@@ -45,7 +44,8 @@ public class SplashActivity extends BaseNetworkActivity {
     Class type = data.getClass();
     if (type == SplashImage.class) {
       SplashImage splashImage = (SplashImage) data;
-      Picasso.with(this).load(splashImage.getSplashImgUrl()).into(mImageSplash);
+      //Picasso.with(this).load(splashImage.getSplashImgUrl()).into(mImageSplash);
+      mImageSplash.setImageURI(splashImage.uri());
       mTxtCopyright.setText(splashImage.getCopyrightInfo());
     }
   }

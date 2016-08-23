@@ -2,6 +2,7 @@ package com.oeasy9999.zhihudemo;
 
 import android.support.annotation.StringRes;
 import android.widget.Toast;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.smartydroid.android.starter.kit.account.Account;
 import com.smartydroid.android.starter.kit.app.StarterKitApp;
 import com.smartydroid.android.starter.kit.retrofit.RetrofitBuilder;
@@ -16,6 +17,7 @@ public class ZhiHuApp extends StarterKitApp{
   @Override public void onCreate() {
     super.onCreate();
     new RetrofitBuilder.Builder().baseUrl(Profile.API_ENDPOINT).build();
+    Fresco.initialize(this);
   }
 
   @Override public Account accountFromJson(String json) {
