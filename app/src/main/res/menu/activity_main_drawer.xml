@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_ribao"
+        android:icon="@drawable/selector_nav_ribao"
+        android:title="@string/ribao"/>
+    <item
+        android:id="@+id/nav_remen"
+        android:icon="@drawable/selector_nav_remen"
+        android:title="@string/remen"/>
+    <item
+        android:id="@+id/nav_zhuti"
+        android:icon="@drawable/selector_nav_zhuti"
+        android:title="@string/zhuti"/>
+    <item
+        android:id="@+id/nav_zhuanlan"
+        android:icon="@drawable/selector_nav_zhuanlan"
+        android:title="@string/zhuanlan"/>
+  </group>
+
+  <item android:title="@string/nav_other">
+    <menu>
+      <item
+          android:id="@+id/nav_share"
+          android:title="@string/nav_share"/>
+      <item
+          android:id="@+id/nav_setting"
+          android:title="@string/nav_setting"/>
+    </menu>
+  </item>
+</menu>
