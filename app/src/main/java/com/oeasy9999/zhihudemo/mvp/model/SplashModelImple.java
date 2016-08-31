@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.model.entity.SplashImage;
-import com.oeasy9999.zhihudemo.mvp.OnLoadSplashListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadSplashListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.SplashPresenter;
 import com.oeasy9999.zhihudemo.mvp.utils.JsonUtils;
 import com.oeasy9999.zhihudemo.ui.activity.MainActivity;

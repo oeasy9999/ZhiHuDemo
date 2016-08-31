@@ -1,7 +1,10 @@
 package com.oeasy9999.zhihudemo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,9 +19,11 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.model.entity.Story;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.RibaoView;
+import com.oeasy9999.zhihudemo.ui.activity.NewsDetailActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.RibaoAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +34,8 @@ import java.util.Locale;
 /**
  * Created by oeasy9999 on 2016/8/25.
  */
-public class RibaoFragment extends BaseFragment implements RibaoView, SwipeRefreshLayout.OnRefreshListener {
+public class RibaoFragment extends BaseFragment
+    implements RibaoView, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
 
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
@@ -65,7 +71,7 @@ public class RibaoFragment extends BaseFragment implements RibaoView, SwipeRefre
     mRecyclerView.setLayoutManager(layoutManager);
     mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-    adapter = new RibaoAdapter(getActivity());
+    adapter = new RibaoAdapter(this, getActivity());
     mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
@@ -154,5 +160,18 @@ public class RibaoFragment extends BaseFragment implements RibaoView, SwipeRefre
 
   @Override public void showLoadFailMsg() {
     Toast.makeText(getActivity(), "加载失败！", Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void onItemClick(RecyclerView.ViewHolder holder) {
+    if (holder instanceof RibaoAdapter.ItemViewHolder) {
+      RibaoAdapter.ItemViewHolder itemViewHolder = (RibaoAdapter.ItemViewHolder) holder;
+      Story story = itemViewHolder.story;
+      Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+      intent.putExtra("story", story);
+      ActivityOptionsCompat optionsCompat =
+          ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+              itemViewHolder.mStoryImg, getString(R.string.shared_img));
+      ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
+    }
   }
 }

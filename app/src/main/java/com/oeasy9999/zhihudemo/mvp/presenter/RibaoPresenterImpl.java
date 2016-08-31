@@ -2,7 +2,7 @@ package com.oeasy9999.zhihudemo.mvp.presenter;
 
 import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
-import com.oeasy9999.zhihudemo.mvp.OnLoadNewsListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsListener;
 import com.oeasy9999.zhihudemo.mvp.model.RibaoModel;
 import com.oeasy9999.zhihudemo.mvp.model.RibaoModelImple;
 import com.oeasy9999.zhihudemo.mvp.view.RibaoView;

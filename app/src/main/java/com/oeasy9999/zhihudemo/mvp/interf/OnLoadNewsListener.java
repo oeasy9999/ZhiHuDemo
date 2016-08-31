@@ -1,4 +1,4 @@
-package com.oeasy9999.zhihudemo.mvp;
+package com.oeasy9999.zhihudemo.mvp.interf;
 
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 

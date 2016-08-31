@@ -3,7 +3,7 @@ package com.oeasy9999.zhihudemo.mvp.presenter;
 import android.content.Context;
 import android.view.View;
 import com.oeasy9999.zhihudemo.model.entity.SplashImage;
-import com.oeasy9999.zhihudemo.mvp.OnLoadSplashListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadSplashListener;
 import com.oeasy9999.zhihudemo.mvp.model.SplashModel;
 import com.oeasy9999.zhihudemo.mvp.model.SplashModelImple;
 import com.oeasy9999.zhihudemo.mvp.view.SplashView;

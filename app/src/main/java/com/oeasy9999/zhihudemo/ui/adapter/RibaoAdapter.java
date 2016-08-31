@@ -16,6 +16,7 @@ import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.model.entity.Story;
 import com.oeasy9999.zhihudemo.model.entity.TopStory;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.view.BannerView;
 import java.util.List;
 
@@ -36,8 +37,10 @@ public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   private ConvenientBanner<TopStory> banner;
   public boolean mShowFooter = true;
   private int footer;
+  private OnItemClickListener mListener;
 
-  public RibaoAdapter(Context context) {
+  public RibaoAdapter(OnItemClickListener listener, Context context) {
+    this.mListener = listener;
     this.mContext = context;
   }
 
@@ -73,23 +76,30 @@ public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof ItemViewHolder) {
-      ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-      Story story = stories.get(position - 1);
-      if (story == null) return;
-      Log.i("1111111",story.getType()+"-->"+story.getTitle());
-      if(story.getType() == 1){
+      final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+      itemViewHolder.story = stories.get(position - 1);
+      if (itemViewHolder.story == null) return;
+      Log.i("1111111",itemViewHolder.story.getType()+"-->"+itemViewHolder.story.getTitle());
+      if(itemViewHolder.story.getType() == 1){
         itemViewHolder.mStoryImg.setVisibility(View.GONE);
         itemViewHolder.mStoryTitle.setGravity(Gravity.CENTER);
         itemViewHolder.mStoryTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
         itemViewHolder.mStoryTitle.setTextSize(12);
+        itemViewHolder.itemView.setEnabled(false);
       } else {
         itemViewHolder.mStoryImg.setVisibility(View.VISIBLE);
         itemViewHolder.mStoryTitle.setGravity(Gravity.LEFT);
         itemViewHolder.mStoryTitle.setTextColor(mContext.getResources().getColor(R.color.primary_text));
         itemViewHolder.mStoryTitle.setTextSize(16);
-        Glide.with(mContext).load(story.getImages()[0].toString()).into(itemViewHolder.mStoryImg);
+        Glide.with(mContext).load(itemViewHolder.story.getImages()[0].toString()).into(itemViewHolder.mStoryImg);
+        itemViewHolder.itemView.setEnabled(true);
       }
-      itemViewHolder.mStoryTitle.setText(story.getTitle());
+      itemViewHolder.mStoryTitle.setText(itemViewHolder.story.getTitle());
+      itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+          if (null != mListener) mListener.onItemClick(itemViewHolder);
+        }
+      });
     } else if (holder instanceof BannerViewHolder) {
       BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
       bannerViewHolder.banner.setPages(new CBViewHolderCreator<BannerView>() {
@@ -124,8 +134,9 @@ public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
   public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView mStoryTitle;
-    private ImageView mStoryImg;
+    public TextView mStoryTitle;
+    public ImageView mStoryImg;
+    public Story story;
 
     public ItemViewHolder(View view) {
       super(view);

@@ -27,4 +27,9 @@
     <item name="android:textColor">@android:color/white</item>
   </style>
 
+  <style name="AppTheme.NoActionBar.Translucent">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+
 </resources>

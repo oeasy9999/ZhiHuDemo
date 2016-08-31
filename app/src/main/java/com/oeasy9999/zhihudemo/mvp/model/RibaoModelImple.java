@@ -1,14 +1,13 @@
 package com.oeasy9999.zhihudemo.mvp.model;
 
 import com.oeasy9999.zhihudemo.API;
+import com.oeasy9999.zhihudemo.model.entity.NewsDetail;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
-import com.oeasy9999.zhihudemo.mvp.OnLoadNewsListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsDetailListener;
 import com.oeasy9999.zhihudemo.mvp.utils.JsonUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -17,11 +16,16 @@ import okhttp3.Response;
  */
 public class RibaoModelImple implements RibaoModel {
 
-  private static final int GET_DURATION = 2000;
+  private static final int GET_DURATION = 3000;
   private int type;
   private long lastGetTime;
   private Ribao ribao;
 
+  /**
+   * 加载日报列表
+   * @param type
+   * @param listener
+   */
   @Override public void getRibao(int type, final OnLoadNewsListener listener) {
     this.type = type;
     lastGetTime = System.currentTimeMillis();
@@ -53,6 +57,38 @@ public class RibaoModelImple implements RibaoModel {
     getData(callback);
   }
 
+  /**
+   * 加载日报详情
+   * @param id
+   * @param listener
+   */
+  @Override public void getRibaoDetail(final int id, final OnLoadNewsDetailListener listener) {
+    lastGetTime = System.currentTimeMillis();
+    Callback<NewsDetail> callback = new Callback<NewsDetail>() {
+
+      private NewsDetail newsDetail;
+
+      @Override public NewsDetail parseNetworkResponse(Response response) throws Exception {
+        newsDetail = JsonUtils.parseNewsDetail(response.body().string());
+        return newsDetail;
+      }
+
+      @Override public void onError(Call call, Exception e) {
+        if (System.currentTimeMillis() - lastGetTime < GET_DURATION) {
+          OkHttpUtils.get().url(API.BASE_URL + id).build().execute(this);
+          return;
+        }
+        e.printStackTrace();
+        listener.onFailure("load newsdetail failed", e);
+      }
+
+      @Override public void onResponse(NewsDetail response) {
+        listener.onSuccess(newsDetail);
+      }
+    };
+    OkHttpUtils.get().url(API.BASE_URL + id).build().execute(callback);
+  }
+
   private void getData(Callback callback) {
     if (type == API.TYPE_LATEST) {
       OkHttpUtils.get().url(API.RIBAO_LATEST).build().execute(callback);
@@ -63,9 +99,9 @@ public class RibaoModelImple implements RibaoModel {
     }
   }
 
-  private String parseStandarDate(Date date) {
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-    formatter.setLenient(false);
-    return formatter.format(date);
-  }
+  //private String parseStandarDate(Date date) {
+  //  SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+  //  formatter.setLenient(false);
+  //  return formatter.format(date);
+  //}
 }

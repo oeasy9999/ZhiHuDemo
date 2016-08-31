@@ -2,7 +2,7 @@ package com.oeasy9999.zhihudemo.mvp.model;
 
 import android.content.Context;
 import android.view.View;
-import com.oeasy9999.zhihudemo.mvp.OnLoadSplashListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadSplashListener;
 
 /**
  * Created by oeasy9999 on 2016/8/28.

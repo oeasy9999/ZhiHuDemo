@@ -35,6 +35,11 @@
     <activity android:name=".ui.activity.MainActivity"
        android:theme="@style/AppTheme.NoActionBar"/>
 
+    <activity android:name=".ui.activity.NewsDetailActivity"
+        android:launchMode="singleTop"
+        android:process=":remote"
+        android:theme="@style/AppTheme.NoActionBar.Translucent"/>
+
   </application>
 
 </manifest>
