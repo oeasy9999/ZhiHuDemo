@@ -9,7 +9,6 @@ import android.view.animation.ScaleAnimation;
 import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.model.entity.SplashImage;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadSplashListener;
-import com.oeasy9999.zhihudemo.mvp.presenter.SplashPresenter;
 import com.oeasy9999.zhihudemo.mvp.utils.JsonUtils;
 import com.oeasy9999.zhihudemo.ui.activity.MainActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -22,7 +21,6 @@ import okhttp3.Response;
  */
 public class SplashModelImple implements SplashModel {
 
-  private SplashPresenter presenter;
   private Context mContext;
 
   public SplashModelImple(Context context) {

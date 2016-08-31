@@ -31,6 +31,7 @@
         android:layout_height="@dimen/height_60dp"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
-        android:src="@mipmap/head"/>
+        android:transitionName="@string/shared_img"
+        android:src="@drawable/ic_menu_gallery"/>
   </LinearLayout>
 </android.support.v7.widget.CardView>

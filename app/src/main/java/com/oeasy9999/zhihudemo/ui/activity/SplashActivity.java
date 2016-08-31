@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity implements SplashView{
   }
 
   @Override public void showSplashImage(SplashImage splashImage) {
-    Glide.with(this).load(splashImage.getImg()).into(mImageSplash);
+    Glide.with(this).load(splashImage.getImg()).placeholder(R.drawable.placeholder).into(mImageSplash);
     mTxtCopyright.setText(splashImage.getText());
   }
 

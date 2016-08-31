@@ -30,6 +30,7 @@
   <style name="AppTheme.NoActionBar.Translucent">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
   </style>
 
 </resources>

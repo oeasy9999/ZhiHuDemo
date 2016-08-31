@@ -51,7 +51,7 @@ public class RibaoModelImple implements RibaoModel {
       }
 
       @Override public void onResponse(Ribao response) {
-        listener.onSuccess(ribao);
+        listener.onSuccess(response);
       }
     };
     getData(callback);
@@ -65,12 +65,8 @@ public class RibaoModelImple implements RibaoModel {
   @Override public void getRibaoDetail(final int id, final OnLoadNewsDetailListener listener) {
     lastGetTime = System.currentTimeMillis();
     Callback<NewsDetail> callback = new Callback<NewsDetail>() {
-
-      private NewsDetail newsDetail;
-
       @Override public NewsDetail parseNetworkResponse(Response response) throws Exception {
-        newsDetail = JsonUtils.parseNewsDetail(response.body().string());
-        return newsDetail;
+        return JsonUtils.parseNewsDetail(response.body().string());
       }
 
       @Override public void onError(Call call, Exception e) {
@@ -83,7 +79,7 @@ public class RibaoModelImple implements RibaoModel {
       }
 
       @Override public void onResponse(NewsDetail response) {
-        listener.onSuccess(newsDetail);
+        listener.onSuccess(response);
       }
     };
     OkHttpUtils.get().url(API.BASE_URL + id).build().execute(callback);

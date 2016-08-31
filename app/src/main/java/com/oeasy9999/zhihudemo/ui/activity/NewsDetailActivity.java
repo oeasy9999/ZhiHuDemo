@@ -49,8 +49,12 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
   }
 
   private void initToolbar() {
-    setSupportActionBar(mToolbar);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    if (mToolbar != null) {
+      setSupportActionBar(mToolbar);
+    }
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -111,5 +115,10 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
 
   @Override public void showLoadFailed(String msg) {
 
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    System.exit(0);
   }
 }
