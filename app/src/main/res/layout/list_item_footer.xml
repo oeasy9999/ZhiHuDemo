@@ -9,12 +9,12 @@
   <ProgressBar
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      />
+      style="?android:attr/progressBarStyleSmall"/>
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginLeft="@dimen/margin_20dp"
-      android:textColor="@color/textOrange"
+      android:textColor="@color/colorPrimary"
       android:textSize="@dimen/text_size_16sp"
       android:text="努力加载中……"/>
 
