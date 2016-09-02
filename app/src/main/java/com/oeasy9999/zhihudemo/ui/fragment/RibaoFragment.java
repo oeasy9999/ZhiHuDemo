@@ -105,6 +105,7 @@ public class RibaoFragment extends BaseFragment
 
   @Override public void onRefresh() {
     if (mData != null) mData = null;//整个过程会多次调用此方法，不清除会造成数据累加，显示重复
+    if (mStories != null) mStories.clear();
     mRibaoPresenter.loadLaest();
   }
 

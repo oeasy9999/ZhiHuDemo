@@ -1,21 +1,24 @@
 package com.oeasy9999.zhihudemo.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.SplashImage;
 import com.oeasy9999.zhihudemo.mvp.presenter.SplashPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.SplashPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.SplashView;
+import com.oeasy9999.zhihudemo.utils.ImageUtils;
 
 /**
  * Created by oeasy9999 on 2016/8/19.
  */
 public class SplashActivity extends BaseActivity implements SplashView{
+
+  public static final String TAG = "SplashActivity";
 
   @Bind(R.id.image_splash) ImageView mImageSplash;
   @Bind(R.id.txt_copyright) TextView mTxtCopyright;
@@ -33,7 +36,8 @@ public class SplashActivity extends BaseActivity implements SplashView{
   }
 
   @Override public void showSplashImage(SplashImage splashImage) {
-    Glide.with(this).load(splashImage.getImg()).placeholder(R.drawable.placeholder).into(mImageSplash);
+    Log.i(TAG, Thread.currentThread().getName());
+    ImageUtils.loadWithPlaceholder(this, splashImage.getImg(), R.drawable.placeholder, mImageSplash);
     mTxtCopyright.setText(splashImage.getText());
   }
 

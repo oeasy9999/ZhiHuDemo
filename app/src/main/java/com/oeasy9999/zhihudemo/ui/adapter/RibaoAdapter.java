@@ -11,13 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bumptech.glide.Glide;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.model.entity.Story;
 import com.oeasy9999.zhihudemo.model.entity.TopStory;
 import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.view.BannerView;
+import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import java.util.List;
 
 /**
@@ -26,9 +26,8 @@ import java.util.List;
 public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private static final int TYPE_BANNER = 0;
-  private static final int TYPE_HEADER = 1;
-  private static final int TYPE_ITEM = 2;
-  private static final int TYPE_FOOTER = 3;
+  private static final int TYPE_ITEM = 1;
+  private static final int TYPE_FOOTER = 2;
 
   private Context mContext;
   private Ribao ribao;
@@ -55,15 +54,11 @@ public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     this.stories = stories;
   }
 
-  public void addList(){}
-
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     if (viewType == TYPE_BANNER) {
       View view = inflater.inflate(R.layout.fragment_banner, parent, false);
       return new BannerViewHolder(view);
-    } else if (viewType == TYPE_HEADER) {
-
     } else if (viewType == TYPE_FOOTER) {
       View view = inflater.inflate(R.layout.list_item_footer, parent, false);
       return new FooterViewHolder(view);
@@ -71,7 +66,6 @@ public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       View view = inflater.inflate(R.layout.list_item_ribao, parent, false);
       return new ItemViewHolder(view);
     }
-    return null;
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -91,7 +85,7 @@ public class RibaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         itemViewHolder.mStoryTitle.setGravity(Gravity.LEFT);
         itemViewHolder.mStoryTitle.setTextColor(mContext.getResources().getColor(R.color.primary_text));
         itemViewHolder.mStoryTitle.setTextSize(16);
-        Glide.with(mContext).load(itemViewHolder.story.getImages()[0].toString()).into(itemViewHolder.mStoryImg);
+        ImageUtils.load(mContext, itemViewHolder.story.getImages()[0].toString(), itemViewHolder.mStoryImg);
         itemViewHolder.itemView.setEnabled(true);
       }
       itemViewHolder.mStoryTitle.setText(itemViewHolder.story.getTitle());

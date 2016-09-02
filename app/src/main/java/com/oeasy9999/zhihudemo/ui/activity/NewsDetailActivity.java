@@ -13,15 +13,19 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.NewsDetail;
 import com.oeasy9999.zhihudemo.model.entity.Story;
+import com.oeasy9999.zhihudemo.model.entity.TopStory;
 import com.oeasy9999.zhihudemo.mvp.presenter.NewsDetailPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.NewsDetailPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.NewsDetailView;
+import com.oeasy9999.zhihudemo.utils.ImageUtils;
+import java.io.Serializable;
 
 /**
  * Created by oeasy9999 on 2016/8/31.
@@ -37,7 +41,6 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
 
   private NewsDetailPresenter mNewsDetailPresenter;
   private NewsDetail mNewsDetail;
-  private Story story;
   private WebView mWebView;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,13 +67,23 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
   }
 
   private void initView() {
-    story = (Story) getIntent().getSerializableExtra("story");
-    mCollapsingToolbar.setTitle(story.getTitle());
-    Glide.with(this).load(story.getImages()[0]).into(mImgNewsDetail);
-
+    Serializable serializable = getIntent().getSerializableExtra("story");
+    int id = 0;
+    if (serializable instanceof Story) {
+      Story story = (Story) serializable;
+      id = story.getId();
+      mCollapsingToolbar.setTitle(story.getTitle());
+      Glide.with(this).load(story.getImages()[0]).into(mImgNewsDetail);
+      ImageUtils.loadWithPlaceholder(this, story.getImages()[0], R.drawable.placeholder, mImgNewsDetail);
+    } else {
+      TopStory topStory = (TopStory) serializable;
+      id = topStory.getId();
+      mCollapsingToolbar.setTitle(topStory.getTitle());
+      ImageUtils.loadWithPlaceholder(this, topStory.getImage(), R.drawable.placeholder, mImgNewsDetail);
+    }
     mNewsDetailPresenter = new NewsDetailPresenterImpl(this);
     initWebView();
-    mNewsDetailPresenter.loadNewsDetail(story.getId());
+    mNewsDetailPresenter.loadNewsDetail(id);
   }
 
   @SuppressLint("SetJavaScriptEnabled") private void initWebView() {
@@ -107,6 +120,15 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
     String html = "<html><head>" + css + "</head><body>" + newsDetail.getBody() + "</body></html>";
     html = html.replace("<div class=\"img-place-holder\">", "");
     mWebView.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
+    initFab();
+  }
+
+  private void initFab() {
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Toast.makeText(NewsDetailActivity.this, "soon coming", Toast.LENGTH_SHORT).show();
+      }
+    });
   }
 
   @Override public void hidProgress() {

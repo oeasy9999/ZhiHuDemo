@@ -3,6 +3,7 @@ package com.oeasy9999.zhihudemo.mvp.model;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -21,6 +22,7 @@ import okhttp3.Response;
  */
 public class SplashModelImple implements SplashModel {
 
+  public static final String TAG = "SplashModelImple";
   private Context mContext;
 
   public SplashModelImple(Context context) {
@@ -30,6 +32,7 @@ public class SplashModelImple implements SplashModel {
   @Override public void getSplashImage(final OnLoadSplashListener listener) {
     Callback<SplashImage> callback = new Callback<SplashImage>() {
       @Override public SplashImage parseNetworkResponse(Response response) throws Exception {
+        Log.i(TAG, Thread.currentThread().getName());
         return JsonUtils.parseSplash(response.body().string());
       }
 
@@ -38,6 +41,7 @@ public class SplashModelImple implements SplashModel {
       }
 
       @Override public void onResponse(SplashImage response) {
+        Log.i(TAG, Thread.currentThread().getName());
         listener.onSuccess(response);
       }
     };

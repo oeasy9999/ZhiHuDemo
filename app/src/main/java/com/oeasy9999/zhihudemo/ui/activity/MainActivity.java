@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import butterknife.Bind;
@@ -24,6 +25,7 @@ public class MainActivity extends BaseActivity
   @Bind(R.id.nav_view) NavigationView mNavView;
   @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
 
+  public static final String TAG = "MainActivity";
   private MainPresenter mMainPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity
     mNavView.setItemTextColor(null);
     mNavView.setItemTextColor(wordCheckedStateColor(R.color.white, R.color.textOrange));
     mNavView.setNavigationItemSelectedListener(this);
+    mNavView.getMenu().getItem(0).setChecked(true);
 
     ImageView navHeaderImage =
         ButterKnife.findById(mNavView.getHeaderView(0), R.id.image_nav_header);
