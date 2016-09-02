@@ -16,8 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
 import com.oeasy9999.zhihudemo.R;
+import com.oeasy9999.zhihudemo.model.entity.HotNews;
 import com.oeasy9999.zhihudemo.model.entity.NewsDetail;
 import com.oeasy9999.zhihudemo.model.entity.Story;
 import com.oeasy9999.zhihudemo.model.entity.TopStory;
@@ -73,13 +73,17 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
       Story story = (Story) serializable;
       id = story.getId();
       mCollapsingToolbar.setTitle(story.getTitle());
-      Glide.with(this).load(story.getImages()[0]).into(mImgNewsDetail);
       ImageUtils.loadWithPlaceholder(this, story.getImages()[0], R.drawable.placeholder, mImgNewsDetail);
-    } else {
+    } else if (serializable instanceof TopStory){
       TopStory topStory = (TopStory) serializable;
       id = topStory.getId();
       mCollapsingToolbar.setTitle(topStory.getTitle());
       ImageUtils.loadWithPlaceholder(this, topStory.getImage(), R.drawable.placeholder, mImgNewsDetail);
+    } else if (serializable instanceof HotNews) {
+      HotNews hotNews = (HotNews) serializable;
+      id = hotNews.getId();
+      mCollapsingToolbar.setTitle(hotNews.getTitle());
+      ImageUtils.loadWithPlaceholder(this, hotNews.getThumbnail(), R.drawable.placeholder, mImgNewsDetail);
     }
     mNewsDetailPresenter = new NewsDetailPresenterImpl(this);
     initWebView();

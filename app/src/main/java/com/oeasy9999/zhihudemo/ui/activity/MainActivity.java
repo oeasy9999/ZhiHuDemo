@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import butterknife.Bind;
@@ -16,6 +15,7 @@ import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.mvp.presenter.MainPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.MainPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.MainView;
+import com.oeasy9999.zhihudemo.ui.fragment.RemenFragment;
 import com.oeasy9999.zhihudemo.ui.fragment.RibaoFragment;
 
 public class MainActivity extends BaseActivity
@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void switchToRemen() {
+    getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new RemenFragment()).commit();
     mToolbar.setTitle(R.string.remen);
   }
 

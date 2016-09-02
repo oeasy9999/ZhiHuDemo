@@ -13,4 +13,6 @@
   <color name="textOrange">#FF7D2E</color>
   <color name="halfer_transparent">#66000000</color>
   <color name="halfer_white">#55FFFFFF</color>
+  <color name="popularityColor">#FFC7C7</color>
+  <color name="commentColor">#CCCCFF</color>
 </resources>

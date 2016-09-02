@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/padding_15dp"
+    android:paddingRight="@dimen/padding_5dp"
+    android:layout_marginTop="@dimen/margin_20dp"
+    android:layout_marginLeft="@dimen/margin_10dp"
+    android:layout_marginRight="@dimen/margin_10dp"
+    >
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/padding_12dp"
+      >
+    <ImageView android:id="@+id/img_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_menu_gallery"/>
+    <TextView android:id="@+id/txt_hot_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_20dp"
+        android:background="@color/halfer_transparent"
+        android:layout_alignBottom="@id/img_thumbnail"
+        android:lineSpacingMultiplier="1.2"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="@dimen/text_size_16sp"
+        android:textColor="@color/white"
+        android:text="热门新闻标题，最多显示两行，在img_thumbnail右侧"/>
+    <!--<TextView android:id="@+id/txt_hot_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/img_thumbnail"
+        android:layout_alignBottom="@id/img_thumbnail"
+        android:drawableLeft="@drawable/ic_comment"
+        android:drawablePadding="@dimen/padding_2dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_14sp"
+        android:textColor="@color/commentColor"
+        android:text="156"/>
+    <TextView android:id="@+id/txt_hot_popularity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_30dp"
+        android:layout_toLeftOf="@id/txt_hot_comments"
+        android:layout_alignBottom="@id/img_thumbnail"
+        android:drawableLeft="@drawable/ic_popularity"
+        android:drawablePadding="@dimen/padding_2dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_14sp"
+        android:textColor="@color/popularityColor"
+        android:text="56"/>-->
+
+  </RelativeLayout>
+
+</android.support.v7.widget.CardView>
