@@ -1,15 +1,12 @@
 package com.oeasy9999.zhihudemo.mvp.presenter;
 
-import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.ZhutiService;
 import com.oeasy9999.zhihudemo.model.entity.Zhuti;
 import com.oeasy9999.zhihudemo.model.entity.ZhutiList;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.view.ZhutiView;
+import com.oeasy9999.zhihudemo.service.ApiService;
 import java.util.List;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -28,12 +25,7 @@ public class ZhutiPresenterImpl implements ZhutiPresenter, OnLoadListener {
   }
 
   @Override public void loadZhutiList() {
-    Retrofit retrofit = new Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-        .baseUrl(API.BASE)
-        .build();
-    ZhutiService zhutiService = retrofit.create(ZhutiService.class);
+    ZhutiService zhutiService = ApiService.createApiService().create(ZhutiService.class);
     zhutiService.getZhutiList()
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())

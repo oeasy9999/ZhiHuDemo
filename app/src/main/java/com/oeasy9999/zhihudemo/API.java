@@ -8,7 +8,7 @@ public interface API {
   public static final int TYPE_LATEST = 0;
   public static final int TYPE_BEFORE = 1;
 
-  public static final String BASE = "http://news-at.zhihu.com/api/4/";
+  public static final String BASE = "http://news-at.zhihu.com/api/";
   public static final String BASE_URL = "http://news-at.zhihu.com/api/4/news/";
   public static final String RIBAO_LATEST = "http://news-at.zhihu.com/api/4/news/latest";
   public static final String RIBAO_BEFORE = "http://news-at.zhihu.com/api/4/news/before/";

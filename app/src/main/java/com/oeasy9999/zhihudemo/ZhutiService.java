@@ -8,5 +8,5 @@ import rx.Observable;
  * Created by oeasy9999 on 2016/9/3.
  */
 public interface ZhutiService {
-  @GET("themes") Observable<ZhutiList> getZhutiList();
+  @GET("4/themes") Observable<ZhutiList> getZhutiList();
 }
