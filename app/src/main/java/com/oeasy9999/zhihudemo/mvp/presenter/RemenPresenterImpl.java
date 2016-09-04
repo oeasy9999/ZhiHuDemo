@@ -63,31 +63,4 @@ public class RemenPresenterImpl implements RemenPresenter, OnLoadListener {
     remenView.hideProgress();
     remenView.showLoadFailMsg();
   }
-
-  /*private void getStoryExtra(Remen remen) {
-    ArrayList<HotNews> hotNewses = remen.getRecent();
-    for (int i = 0; i < hotNewses.size(); i++) {
-      hotNews = hotNewses.get(i);
-      id = hotNews.getId();
-      secondGetTime = System.currentTimeMillis();
-      Callback<StoryExtra> storyExtraCallback = new Callback<StoryExtra>() {
-        @Override public StoryExtra parseNetworkResponse(Response response) throws Exception {
-          storyExtra = JsonUtils.parseStoryExtra(response.body().string());
-          return storyExtra;
-        }
-
-        @Override public void onError(Call call, Exception e) {
-          if (System.currentTimeMillis() - secondGetTime < 3000) {
-            OkHttpUtils.get().url(API.STORY_EXTRA + id).build().execute(this);
-            return;
-          }
-        }
-
-        @Override public void onResponse(StoryExtra response) {
-
-        }
-      };
-      OkHttpUtils.get().url(API.STORY_EXTRA + id).build().execute(storyExtraCallback);
-    }
-  }*/
 }

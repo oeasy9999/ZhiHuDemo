@@ -6,4 +6,13 @@ import android.app.Application;
  * Created by oeasy9999 on 2016/8/19.
  */
 public class ZhiHuApp extends Application {
+
+  @Override public void onCreate() {
+    super.onCreate();
+    //new Retrofit.Builder()
+    //    .addConverterFactory(GsonConverterFactory.create())
+    //    .baseUrl(API.BASE)
+    //    .build();
+
+  }
 }

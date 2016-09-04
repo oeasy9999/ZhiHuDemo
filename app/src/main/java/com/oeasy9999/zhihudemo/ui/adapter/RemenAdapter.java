@@ -29,7 +29,8 @@ public class RemenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_remen, null);
+    //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_remen, null);---->如果用这个，会出现CardView设置margin属性无效。
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_remen, parent, false);
     return new ItemViewHolder(view);
   }
 

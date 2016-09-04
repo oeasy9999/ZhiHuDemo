@@ -17,6 +17,7 @@ import com.oeasy9999.zhihudemo.mvp.presenter.MainPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.MainView;
 import com.oeasy9999.zhihudemo.ui.fragment.RemenFragment;
 import com.oeasy9999.zhihudemo.ui.fragment.RibaoFragment;
+import com.oeasy9999.zhihudemo.ui.fragment.ZhutiFragment;
 
 public class MainActivity extends BaseActivity
     implements MainView, NavigationView.OnNavigationItemSelectedListener {
@@ -92,6 +93,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void switchToZhuti() {
+    getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new ZhutiFragment()).commit();
     mToolbar.setTitle(R.string.zhuti);
   }
 
