@@ -1,8 +1,9 @@
 package com.oeasy9999.zhihudemo.mvp.presenter;
 
 import com.oeasy9999.zhihudemo.model.entity.HotNews;
+import com.oeasy9999.zhihudemo.model.entity.Remen;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
-import com.oeasy9999.zhihudemo.mvp.model.RemenModel;
+import com.oeasy9999.zhihudemo.mvp.model.NewsModel;
 import com.oeasy9999.zhihudemo.mvp.model.RemenModelImpl;
 import com.oeasy9999.zhihudemo.mvp.view.RemenView;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class RemenPresenterImpl implements RemenPresenter, OnLoadListener {
 
   public static final String TAG = "RemenPresenterImpl";
   private RemenView remenView;
-  private RemenModel remenModel;
+  private NewsModel remenModel;
   private ArrayList<HotNews> hotNewses;
 
   public RemenPresenterImpl(RemenView remenView) {
@@ -27,7 +28,7 @@ public class RemenPresenterImpl implements RemenPresenter, OnLoadListener {
   }
 
   @Override public void loadHotNews() {
-    remenModel.getRemen(this);
+    remenModel.getNews(this);
   }
 
   @Override public void onSuccess() {

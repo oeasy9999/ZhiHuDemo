@@ -12,15 +12,20 @@ import rx.schedulers.Schedulers;
 /**
  * Created by oeasy9999 on 2016/9/4.
  */
-public class RemenModelImpl implements RemenModel {
+public class RemenModelImpl implements NewsModel {
 
   private RemenPresenterImpl remenPresenter;
+  private Remen mRemen;
 
   public RemenModelImpl(RemenPresenterImpl remenPresenter) {
     this.remenPresenter = remenPresenter;
   }
 
-  @Override public void getRemen(final OnLoadListener listener) {
+  public void setmRemen(Remen mRemen) {
+    this.mRemen = mRemen;
+  }
+
+  @Override public void getNews(final OnLoadListener listener) {
     RemenService remenService = ApiService.createApiService().create(RemenService.class);
     remenService.getRemen()
         .subscribeOn(Schedulers.newThread())

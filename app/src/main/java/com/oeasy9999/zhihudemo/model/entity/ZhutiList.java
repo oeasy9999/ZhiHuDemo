@@ -1,13 +1,14 @@
 package com.oeasy9999.zhihudemo.model.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.oeasy9999.zhihudemo.mvp.interf.NewsItem;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/9/3.
  */
-public class ZhutiList implements Serializable{
+public class ZhutiList implements Serializable, NewsItem{
 
   @SerializedName("limit") private int limit;
   @SerializedName("subscribed") private List<String> subscribed;

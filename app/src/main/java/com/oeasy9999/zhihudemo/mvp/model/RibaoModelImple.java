@@ -3,13 +3,19 @@ package com.oeasy9999.zhihudemo.mvp.model;
 import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.model.entity.NewsDetail;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
-import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsListener;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsDetailListener;
+import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.utils.JsonUtils;
+import com.oeasy9999.zhihudemo.service.ApiService;
+import com.oeasy9999.zhihudemo.service.RibaoService;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 import okhttp3.Call;
 import okhttp3.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by oeasy9999 on 2016/8/28.
@@ -19,48 +25,98 @@ public class RibaoModelImple implements RibaoModel {
   private static final int GET_DURATION = 3000;
   private int type;
   private long lastGetTime;
-  private Ribao ribao;
+  private Ribao mRibao;
+
+  private RibaoPresenterImpl ribaoPresenter;
+
+  public RibaoModelImple() {
+  }
+
+  public RibaoModelImple(RibaoPresenterImpl ribaoPresenter) {
+    this.ribaoPresenter = ribaoPresenter;
+  }
+
+  /*public void setRibao(Ribao ribao) {
+    this.mRibao = ribao;
+  }*/
 
   /**
    * 加载日报列表
-   * @param type
-   * @param listener
    */
-  @Override public void getRibao(int type, final OnLoadNewsListener listener) {
+  @Override public void getRibao(int type, final OnLoadListener listener) {
     this.type = type;
-    lastGetTime = System.currentTimeMillis();
+    RibaoService ribaoService = ApiService.createApiService().create(RibaoService.class);
+    if (type == API.TYPE_LATEST) {
+      ribaoService.getRibaoLatest()
+          .subscribeOn(Schedulers.newThread())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(new Subscriber<Ribao>() {
+            @Override public void onCompleted() {
+              listener.onSuccess();
+            }
 
-    Callback<Ribao> callback = new Callback<Ribao>() {
+            @Override public void onError(Throwable e) {
+              listener.onFailure("load news failed", (Exception) e);
+            }
 
-      //List<Story> stories;
+            @Override public void onNext(Ribao ribao) {
+              //setRibao(ribao);
+              mRibao = ribao;
+              ribaoPresenter.setRibao(ribao);
+            }
+          });
+    } else if (type == API.TYPE_BEFORE) {
+      String data = mRibao.getData();
+      ribaoService.getRibaoBefore(data)
+          .subscribeOn(Schedulers.newThread())
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(new Subscriber<Ribao>() {
+            @Override public void onCompleted() {
+              listener.onSuccess();
+            }
 
-      @Override public Ribao parseNetworkResponse(Response response) throws Exception {
-        ribao = JsonUtils.parseRibao(response.body().string());
-        //stories = ribao.getStories();
-        //Log.i("嘿嘿嘿", stories.size()+"");
-        return ribao;
-      }
+            @Override public void onError(Throwable e) {
+              listener.onFailure("load news failed", (Exception) e);
+            }
 
-      @Override public void onError(Call call, Exception e) {
-        if (System.currentTimeMillis() - lastGetTime < GET_DURATION) {
-          getData(this);
-          return;
-        }
-        //e.printStackTrace();
-        listener.onFailure("load zhihu news failed", e);
-      }
-
-      @Override public void onResponse(Ribao response) {
-        listener.onSuccess(response);
-      }
-    };
-    getData(callback);
+            @Override public void onNext(Ribao ribao) {
+              //setRibao(ribao);
+              mRibao = ribao;
+              ribaoPresenter.setRibao(ribao);
+            }
+          });
+    }
+    //lastGetTime = System.currentTimeMillis();
+    //
+    //Callback<Ribao> callback = new Callback<Ribao>() {
+    //
+    //  //List<Story> stories;
+    //
+    //  @Override public Ribao parseNetworkResponse(Response response) throws Exception {
+    //    ribao = JsonUtils.parseRibao(response.body().string());
+    //    //stories = ribao.getStories();
+    //    //Log.i("嘿嘿嘿", stories.size()+"");
+    //    return ribao;
+    //  }
+    //
+    //  @Override public void onError(Call call, Exception e) {
+    //    if (System.currentTimeMillis() - lastGetTime < GET_DURATION) {
+    //      getData(this);
+    //      return;
+    //    }
+    //    //e.printStackTrace();
+    //    listener.onFailure("load zhihu news failed", e);
+    //  }
+    //
+    //  @Override public void onResponse(Ribao response) {
+    //    listener.onSuccess(response);
+    //  }
+    //};
+    //getData(callback);
   }
 
   /**
    * 加载日报详情
-   * @param id
-   * @param listener
    */
   @Override public void getRibaoDetail(final int id, final OnLoadNewsDetailListener listener) {
     lastGetTime = System.currentTimeMillis();
@@ -85,15 +141,15 @@ public class RibaoModelImple implements RibaoModel {
     OkHttpUtils.get().url(API.BASE_URL + id).build().execute(callback);
   }
 
-  private void getData(Callback callback) {
-    if (type == API.TYPE_LATEST) {
-      OkHttpUtils.get().url(API.RIBAO_LATEST).build().execute(callback);
-    } else if (type == API.TYPE_BEFORE) {
-      //String date = parseStandarDate(new Date());
-      String date = ribao.getData();
-      OkHttpUtils.get().url(API.RIBAO_BEFORE + date).build().execute(callback);
-    }
-  }
+  //private void getData(Callback callback) {
+  //  if (type == API.TYPE_LATEST) {
+  //    OkHttpUtils.get().url(API.RIBAO_LATEST).build().execute(callback);
+  //  } else if (type == API.TYPE_BEFORE) {
+  //    //String date = parseStandarDate(new Date());
+  //    String date = ribao.getData();
+  //    OkHttpUtils.get().url(API.RIBAO_BEFORE + date).build().execute(callback);
+  //  }
+  //}
 
   //private String parseStandarDate(Date date) {
   //  SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
