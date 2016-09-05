@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by oeasy9999 on 2016/9/4.
  */
-public class ZhutiListModelImpl implements NewsModel<ZhutiList> {
+public class ZhutiListModelImpl implements IModel {
 
   private ZhutiPresenterImpl zhutiPresenter;
 
@@ -20,7 +20,7 @@ public class ZhutiListModelImpl implements NewsModel<ZhutiList> {
     this.zhutiPresenter = zhutiPresenter;
   }
 
-  @Override public void getNews(final OnLoadListener listener) {
+  @Override public void getData(final OnLoadListener listener) {
     ZhutiService zhutiService = ApiService.createApiService().create(ZhutiService.class);
     zhutiService.getZhutiList()
         .subscribeOn(Schedulers.io())
@@ -36,7 +36,7 @@ public class ZhutiListModelImpl implements NewsModel<ZhutiList> {
 
           @Override public void onNext(ZhutiList zhutiList) {
             //zhutiView.showZhutiList(zhutiList.getZhutis());
-            zhutiPresenter.setZhutiList(zhutiList.getZhutis());
+            zhutiPresenter.setZhutiList(zhutiList);
           }
         });
   }

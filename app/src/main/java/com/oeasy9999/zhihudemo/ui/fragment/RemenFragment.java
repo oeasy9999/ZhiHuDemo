@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,25 +15,25 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.HotNews;
+import com.oeasy9999.zhihudemo.model.entity.Remen;
 import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
-import com.oeasy9999.zhihudemo.mvp.presenter.RemenPresenter;
+import com.oeasy9999.zhihudemo.mvp.presenter.IPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.RemenPresenterImpl;
-import com.oeasy9999.zhihudemo.mvp.view.RemenView;
+import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.activity.NewsDetailActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.RemenAdapter;
-import java.util.ArrayList;
 
 /**
  * Created by oeasy9999 on 2016/9/2.
  */
-public class RemenFragment extends BaseFragment implements RemenView, SwipeRefreshLayout.OnRefreshListener,
+public class RemenFragment extends BaseFragment implements IView<Remen>, SwipeRefreshLayout.OnRefreshListener,
     OnItemClickListener {
 
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
 
   private LinearLayoutManager layoutManager;
-  private RemenPresenter mRemenPresenter;
+  private IPresenter mRemenPresenter;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -63,13 +62,12 @@ public class RemenFragment extends BaseFragment implements RemenView, SwipeRefre
   }
 
   @Override public void onRefresh() {
-
-    mRemenPresenter.loadHotNews();
+    mRemenPresenter.loadData();
   }
 
-  @Override public void showRemen(ArrayList<HotNews> hotNewses) {
-    Log.i("哈哈哈", hotNewses.size()+"");
-    RemenAdapter remenAdapter = new RemenAdapter(getActivity(), hotNewses, this);
+  @Override public void showData(Remen remen) {
+    //Log.i("哈哈哈", hotNewses.size()+"");
+    RemenAdapter remenAdapter = new RemenAdapter(getActivity(), remen.getRecent(), this);
     mRecyclerView.setAdapter(remenAdapter);
     remenAdapter.notifyDataSetChanged();
   }

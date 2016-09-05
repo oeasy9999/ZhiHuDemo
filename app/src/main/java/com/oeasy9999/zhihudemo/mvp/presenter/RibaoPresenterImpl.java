@@ -4,18 +4,18 @@ import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.model.RibaoModel;
 import com.oeasy9999.zhihudemo.mvp.model.RibaoModelImple;
-import com.oeasy9999.zhihudemo.mvp.view.RibaoView;
+import com.oeasy9999.zhihudemo.mvp.view.IView;
 
 /**
  * Created by oeasy9999 on 2016/8/28.
  */
 public class RibaoPresenterImpl implements RibaoPresenter, OnLoadListener {
 
-  private RibaoView mRibaoView;
+  private IView<Ribao> mRibaoView;
   private RibaoModel mRibaoModel;
   private Ribao ribao;
 
-  public RibaoPresenterImpl(RibaoView ribaoView) {
+  public RibaoPresenterImpl(IView<Ribao> ribaoView) {
     this.mRibaoView = ribaoView;
     this.mRibaoModel = new RibaoModelImple(this);
   }
@@ -36,7 +36,7 @@ public class RibaoPresenterImpl implements RibaoPresenter, OnLoadListener {
   @Override public void onSuccess() {
     mRibaoView.hideProgress();
     if (ribao != null) {
-      mRibaoView.showRibao(ribao);
+      mRibaoView.showData(ribao);
     } else {
       mRibaoView.showLoadFailMsg();
     }

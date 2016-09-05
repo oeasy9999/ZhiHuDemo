@@ -23,7 +23,7 @@ import com.oeasy9999.zhihudemo.model.entity.Story;
 import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenterImpl;
-import com.oeasy9999.zhihudemo.mvp.view.RibaoView;
+import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.activity.NewsDetailActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.RibaoAdapter;
 import java.text.SimpleDateFormat;
@@ -36,7 +36,7 @@ import java.util.Locale;
  * Created by oeasy9999 on 2016/8/25.
  */
 public class RibaoFragment extends BaseFragment
-    implements RibaoView, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
+    implements IView<Ribao>, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
 
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
@@ -123,7 +123,7 @@ public class RibaoFragment extends BaseFragment
     adapter.mShowFooter = false;
   }
 
-  @Override public void showRibao(Ribao ribao) {
+  @Override public void showData(Ribao ribao) {
     Story tip = new Story(1, convertDate(ribao.getData()));
     List<Story> stories = ribao.getStories();
     stories.add(0, tip);

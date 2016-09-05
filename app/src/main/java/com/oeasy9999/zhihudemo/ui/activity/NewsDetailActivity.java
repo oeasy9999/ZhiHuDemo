@@ -23,14 +23,14 @@ import com.oeasy9999.zhihudemo.model.entity.Story;
 import com.oeasy9999.zhihudemo.model.entity.TopStory;
 import com.oeasy9999.zhihudemo.mvp.presenter.NewsDetailPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.NewsDetailPresenterImpl;
-import com.oeasy9999.zhihudemo.mvp.view.NewsDetailView;
+import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import java.io.Serializable;
 
 /**
  * Created by oeasy9999 on 2016/8/31.
  */
-public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
+public class NewsDetailActivity extends BaseActivity implements IView<NewsDetail> {
 
   @Bind(R.id.img_news_detail) ImageView mImgNewsDetail;
   @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -106,7 +106,7 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
           view.postDelayed(new Runnable() {
             @Override public void run() {
               view.setVisibility(View.VISIBLE);
-              hidProgress();
+              hideProgress();
             }
           }, 300);
         }
@@ -118,7 +118,7 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
     mProgress.setVisibility(View.VISIBLE);
   }
 
-  @Override public void showDetail(NewsDetail newsDetail) {
+  @Override public void showData(NewsDetail newsDetail) {
     mNewsDetail = newsDetail;
     String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/css/news.css\" type=\"text/css\">";
     String html = "<html><head>" + css + "</head><body>" + newsDetail.getBody() + "</body></html>";
@@ -135,11 +135,11 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
     });
   }
 
-  @Override public void hidProgress() {
+  @Override public void hideProgress() {
     mProgress.setVisibility(View.GONE);
   }
 
-  @Override public void showLoadFailed() {
+  @Override public void showLoadFailMsg() {
 
   }
 

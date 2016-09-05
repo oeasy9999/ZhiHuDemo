@@ -1,13 +1,14 @@
 package com.oeasy9999.zhihudemo.model.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.oeasy9999.zhihudemo.mvp.interf.Data;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/8/31.
  */
-public class NewsDetail implements Serializable{
+public class NewsDetail implements Serializable, Data{
 
   @SerializedName("id") private int id;
   @SerializedName("body") private String body;

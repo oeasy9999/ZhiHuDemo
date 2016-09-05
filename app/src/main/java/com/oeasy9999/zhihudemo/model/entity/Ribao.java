@@ -1,13 +1,14 @@
 package com.oeasy9999.zhihudemo.model.entity;
 
 import com.google.gson.annotations.SerializedName;
+import com.oeasy9999.zhihudemo.mvp.interf.Data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by oeasy9999 on 2016/8/24.
  */
-public class Ribao implements Serializable {
+public class Ribao implements Serializable, Data {
 
   @SerializedName("date") private String data;
   @SerializedName("stories") private ArrayList<Story> stories;

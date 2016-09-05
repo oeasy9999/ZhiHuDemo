@@ -11,7 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.SplashImage;
-import com.oeasy9999.zhihudemo.mvp.presenter.SplashPresenter;
+import com.oeasy9999.zhihudemo.mvp.presenter.IPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.SplashPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.SplashView;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
@@ -25,7 +25,7 @@ public class SplashActivity extends BaseActivity implements SplashView{
 
   @Bind(R.id.image_splash) ImageView mImageSplash;
   @Bind(R.id.txt_copyright) TextView mTxtCopyright;
-  private SplashPresenter mSplashPresenter;
+  private IPresenter mSplashPresenter;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity implements SplashView{
     ButterKnife.bind(this);
     //getSplashImage();
     mSplashPresenter = new SplashPresenterImpl(this);
-    mSplashPresenter.loadSplashImage();
+    mSplashPresenter.loadData();
     //mSplashPresenter.animator(mImageSplash);
     showAnimator();
   }

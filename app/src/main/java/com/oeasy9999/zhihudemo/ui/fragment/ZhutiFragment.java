@@ -14,21 +14,20 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
-import com.oeasy9999.zhihudemo.model.entity.Zhuti;
-import com.oeasy9999.zhihudemo.mvp.presenter.ZhutiPresenter;
+import com.oeasy9999.zhihudemo.model.entity.ZhutiList;
+import com.oeasy9999.zhihudemo.mvp.presenter.IPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhutiPresenterImpl;
-import com.oeasy9999.zhihudemo.mvp.view.ZhutiView;
+import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.adapter.ZhutiListAdapter;
-import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/9/3.
  */
-public class ZhutiFragment extends BaseFragment implements ZhutiView, SwipeRefreshLayout.OnRefreshListener{
+public class ZhutiFragment extends BaseFragment implements IView<ZhutiList>, SwipeRefreshLayout.OnRefreshListener{
 
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
-  private ZhutiPresenter zhutiPresenter;
+  private IPresenter zhutiPresenter;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -58,12 +57,12 @@ public class ZhutiFragment extends BaseFragment implements ZhutiView, SwipeRefre
   }
 
   @Override public void onRefresh() {
-    zhutiPresenter.loadZhutiList();
+    zhutiPresenter.loadData();
   }
 
-  @Override public void showZhutiList(List<Zhuti> zhutiList) {
-    Log.i("ZhutiFragment哈哈哈", zhutiList.size()+"");
-    ZhutiListAdapter adapter = new ZhutiListAdapter(getActivity(), zhutiList);
+  @Override public void showData(ZhutiList zhutiList) {
+    //Log.i("ZhutiFragment哈哈哈", zhutiList.size()+"");
+    ZhutiListAdapter adapter = new ZhutiListAdapter(getActivity(), zhutiList.getZhutis());
     mRecyclerView.setAdapter(adapter);
     adapter.notifyDataSetChanged();
   }
