@@ -1,18 +1,11 @@
 package com.oeasy9999.zhihudemo.mvp.model;
 
 import com.oeasy9999.zhihudemo.API;
-import com.oeasy9999.zhihudemo.model.entity.NewsDetail;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
-import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsDetailListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenterImpl;
-import com.oeasy9999.zhihudemo.mvp.utils.JsonUtils;
 import com.oeasy9999.zhihudemo.service.ApiService;
 import com.oeasy9999.zhihudemo.service.RibaoService;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.Callback;
-import okhttp3.Call;
-import okhttp3.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,14 +16,14 @@ import rx.schedulers.Schedulers;
 public class RibaoModelImple implements RibaoModel {
 
   private static final int GET_DURATION = 3000;
-  private int type;
-  private long lastGetTime;
+  //private int type;
+  //private long lastGetTime;
   private Ribao mRibao;
 
   private RibaoPresenterImpl ribaoPresenter;
 
-  public RibaoModelImple() {
-  }
+  //public RibaoModelImple() {
+  //}
 
   public RibaoModelImple(RibaoPresenterImpl ribaoPresenter) {
     this.ribaoPresenter = ribaoPresenter;
@@ -44,11 +37,11 @@ public class RibaoModelImple implements RibaoModel {
    * 加载日报列表
    */
   @Override public void getRibao(int type, final OnLoadListener listener) {
-    this.type = type;
+    //this.type = type;
     RibaoService ribaoService = ApiService.createApiService().create(RibaoService.class);
     if (type == API.TYPE_LATEST) {
       ribaoService.getRibaoLatest()
-          .subscribeOn(Schedulers.newThread())
+          .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(new Subscriber<Ribao>() {
             @Override public void onCompleted() {
@@ -68,7 +61,7 @@ public class RibaoModelImple implements RibaoModel {
     } else if (type == API.TYPE_BEFORE) {
       String data = mRibao.getData();
       ribaoService.getRibaoBefore(data)
-          .subscribeOn(Schedulers.newThread())
+          .subscribeOn(Schedulers.io())
           .observeOn(AndroidSchedulers.mainThread())
           .subscribe(new Subscriber<Ribao>() {
             @Override public void onCompleted() {
@@ -118,28 +111,28 @@ public class RibaoModelImple implements RibaoModel {
   /**
    * 加载日报详情
    */
-  @Override public void getRibaoDetail(final int id, final OnLoadNewsDetailListener listener) {
-    lastGetTime = System.currentTimeMillis();
-    Callback<NewsDetail> callback = new Callback<NewsDetail>() {
-      @Override public NewsDetail parseNetworkResponse(Response response) throws Exception {
-        return JsonUtils.parseNewsDetail(response.body().string());
-      }
-
-      @Override public void onError(Call call, Exception e) {
-        if (System.currentTimeMillis() - lastGetTime < GET_DURATION) {
-          OkHttpUtils.get().url(API.BASE_URL + id).build().execute(this);
-          return;
-        }
-        e.printStackTrace();
-        listener.onFailure("load newsdetail failed", e);
-      }
-
-      @Override public void onResponse(NewsDetail response) {
-        listener.onSuccess(response);
-      }
-    };
-    OkHttpUtils.get().url(API.BASE_URL + id).build().execute(callback);
-  }
+  //@Override public void getRibaoDetail(final int id, final OnLoadNewsDetailListener listener) {
+  //  lastGetTime = System.currentTimeMillis();
+  //  Callback<NewsDetail> callback = new Callback<NewsDetail>() {
+  //    @Override public NewsDetail parseNetworkResponse(Response response) throws Exception {
+  //      return JsonUtils.parseNewsDetail(response.body().string());
+  //    }
+  //
+  //    @Override public void onError(Call call, Exception e) {
+  //      if (System.currentTimeMillis() - lastGetTime < GET_DURATION) {
+  //        OkHttpUtils.get().url(API.BASE_URL + id).build().execute(this);
+  //        return;
+  //      }
+  //      e.printStackTrace();
+  //      listener.onFailure("load newsdetail failed", e);
+  //    }
+  //
+  //    @Override public void onResponse(NewsDetail response) {
+  //      listener.onSuccess(response);
+  //    }
+  //  };
+  //  OkHttpUtils.get().url(API.BASE_URL + id).build().execute(callback);
+  //}
 
   //private void getData(Callback callback) {
   //  if (type == API.TYPE_LATEST) {

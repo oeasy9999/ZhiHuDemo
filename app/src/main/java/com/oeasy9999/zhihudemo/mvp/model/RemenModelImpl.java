@@ -28,7 +28,7 @@ public class RemenModelImpl implements NewsModel {
   @Override public void getNews(final OnLoadListener listener) {
     RemenService remenService = ApiService.createApiService().create(RemenService.class);
     remenService.getRemen()
-        .subscribeOn(Schedulers.newThread())
+        .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<Remen>() {
           @Override public void onCompleted() {

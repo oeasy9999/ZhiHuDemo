@@ -1,6 +1,5 @@
 package com.oeasy9999.zhihudemo.mvp.presenter;
 
-import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.model.RibaoModel;
@@ -25,18 +24,22 @@ public class RibaoPresenterImpl implements RibaoPresenter, OnLoadListener {
     this.ribao = ribao;
   }
 
-  @Override public void loadLaest() {
+  @Override public void loadLaest(int type) {
+    mRibaoModel.getRibao(type, this);
     mRibaoView.showProgress();
-    mRibaoModel.getRibao(API.TYPE_LATEST, this);
   }
 
-  @Override public void loadBefore() {
-    mRibaoModel.getRibao(API.TYPE_BEFORE, this);
-  }
+  //@Override public void loadBefore() {
+  //  mRibaoModel.getRibao(API.TYPE_BEFORE, this);
+  //}
 
   @Override public void onSuccess() {
     mRibaoView.hideProgress();
-    mRibaoView.showRibao(ribao);
+    if (ribao != null) {
+      mRibaoView.showRibao(ribao);
+    } else {
+      mRibaoView.showLoadFailMsg();
+    }
   }
 
   @Override public void onFailure(String msg, Exception e) {

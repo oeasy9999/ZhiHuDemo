@@ -16,6 +16,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.oeasy9999.zhihudemo.API;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.model.entity.Story;
@@ -89,7 +90,7 @@ public class RibaoFragment extends BaseFragment
     int firstPosition = layoutManager.findFirstVisibleItemPosition();
     int lastPosition = layoutManager.findLastVisibleItemPosition();
     if (lastPosition + 1 == adapter.getItemCount() && adapter.mShowFooter) {
-      mRibaoPresenter.loadBefore();
+      mRibaoPresenter.loadLaest(API.TYPE_BEFORE);
     }
   }
 
@@ -106,7 +107,7 @@ public class RibaoFragment extends BaseFragment
   @Override public void onRefresh() {
     if (mData != null) mData = null;//整个过程会多次调用此方法，不清除会造成数据累加，显示重复
     if (mStories != null) mStories.clear();
-    mRibaoPresenter.loadLaest();
+    mRibaoPresenter.loadLaest(API.TYPE_LATEST);
   }
 
   @Override public void onDestroyView() {

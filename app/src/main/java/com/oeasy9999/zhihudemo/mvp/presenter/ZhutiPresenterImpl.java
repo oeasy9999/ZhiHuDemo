@@ -30,8 +30,12 @@ public class ZhutiPresenterImpl implements ZhutiPresenter, OnLoadListener {
   }
 
   @Override public void onSuccess() {
-    zhutiView.showZhutiList(zhutiList);
     zhutiView.hideProgress();
+    if (zhutiList != null) {
+      zhutiView.showZhutiList(zhutiList);
+    } else {
+      zhutiView.showLoadFailMsg();
+    }
   }
 
   @Override public void onFailure(String msg, Exception e) {

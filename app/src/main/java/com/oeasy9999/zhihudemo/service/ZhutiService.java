@@ -1,4 +1,4 @@
-package com.oeasy9999.zhihudemo;
+package com.oeasy9999.zhihudemo.service;
 
 import com.oeasy9999.zhihudemo.model.entity.ZhutiList;
 import retrofit2.http.GET;

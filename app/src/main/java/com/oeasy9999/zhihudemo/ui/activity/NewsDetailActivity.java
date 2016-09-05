@@ -139,7 +139,7 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
     mProgress.setVisibility(View.GONE);
   }
 
-  @Override public void showLoadFailed(String msg) {
+  @Override public void showLoadFailed() {
 
   }
 

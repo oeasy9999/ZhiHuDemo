@@ -9,5 +9,5 @@ public interface NewsDetailView {
   void showProgress();
   void showDetail(NewsDetail newsDetail);
   void hidProgress();
-  void showLoadFailed(String msg);
+  void showLoadFailed();
 }

@@ -1,7 +1,6 @@
 package com.oeasy9999.zhihudemo.mvp.presenter;
 
 import com.oeasy9999.zhihudemo.model.entity.HotNews;
-import com.oeasy9999.zhihudemo.model.entity.Remen;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.model.NewsModel;
 import com.oeasy9999.zhihudemo.mvp.model.RemenModelImpl;
@@ -32,8 +31,12 @@ public class RemenPresenterImpl implements RemenPresenter, OnLoadListener {
   }
 
   @Override public void onSuccess() {
-    remenView.showRemen(hotNewses);
     remenView.hideProgress();
+    if (hotNewses != null) {
+      remenView.showRemen(hotNewses);
+    } else {
+      remenView.showLoadFailMsg();
+    }
   }
 
   @Override public void onFailure(String msg, Exception e) {

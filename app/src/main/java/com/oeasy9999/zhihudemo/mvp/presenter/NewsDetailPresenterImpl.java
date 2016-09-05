@@ -1,34 +1,44 @@
 package com.oeasy9999.zhihudemo.mvp.presenter;
 
 import com.oeasy9999.zhihudemo.model.entity.NewsDetail;
-import com.oeasy9999.zhihudemo.mvp.interf.OnLoadNewsDetailListener;
-import com.oeasy9999.zhihudemo.mvp.model.RibaoModel;
-import com.oeasy9999.zhihudemo.mvp.model.RibaoModelImple;
+import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
+import com.oeasy9999.zhihudemo.mvp.model.NewsDetailModel;
+import com.oeasy9999.zhihudemo.mvp.model.NewsDetailModelImpl;
 import com.oeasy9999.zhihudemo.mvp.view.NewsDetailView;
 
 /**
  * Created by oeasy9999 on 2016/8/31.
  */
-public class NewsDetailPresenterImpl implements NewsDetailPresenter, OnLoadNewsDetailListener {
+public class NewsDetailPresenterImpl implements NewsDetailPresenter, OnLoadListener {
 
   private NewsDetailView mNewsDetailView;
-  private RibaoModel mRibaoModel;
+  //private RibaoModel mRibaoModel;
+  private NewsDetailModel newsDetailModel;
+  private NewsDetail newsDetail;
 
   public NewsDetailPresenterImpl(NewsDetailView newsDetailView) {
     this.mNewsDetailView = newsDetailView;
-    this.mRibaoModel = new RibaoModelImple();
+    //this.mRibaoModel = new RibaoModelImple();
+    this.newsDetailModel = new NewsDetailModelImpl(this);
+  }
+
+  public void setNewsDetail(NewsDetail newsDetail) {
+    this.newsDetail = newsDetail;
   }
 
   @Override public void loadNewsDetail(int id) {
     mNewsDetailView.showProgress();
-    mRibaoModel.getRibaoDetail(id, this);
+    newsDetailModel.getNewsDetail(id, this);
+    //mRibaoModel.getRibaoDetail(id, this);
   }
 
-  @Override public void onSuccess(NewsDetail newsDetail) {
+  @Override public void onSuccess() {
+    mNewsDetailView.hidProgress();
     if (newsDetail != null) {
       mNewsDetailView.showDetail(newsDetail);
+    } else {
+      mNewsDetailView.showLoadFailed();
     }
-    mNewsDetailView.hidProgress();
   }
 
   @Override public void onFailure(String msg, Exception e) {

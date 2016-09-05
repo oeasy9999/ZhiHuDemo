@@ -1,6 +1,6 @@
 package com.oeasy9999.zhihudemo.mvp.model;
 
-import com.oeasy9999.zhihudemo.ZhutiService;
+import com.oeasy9999.zhihudemo.service.ZhutiService;
 import com.oeasy9999.zhihudemo.model.entity.ZhutiList;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhutiPresenterImpl;
@@ -23,7 +23,7 @@ public class ZhutiListModelImpl implements NewsModel<ZhutiList> {
   @Override public void getNews(final OnLoadListener listener) {
     ZhutiService zhutiService = ApiService.createApiService().create(ZhutiService.class);
     zhutiService.getZhutiList()
-        .subscribeOn(Schedulers.newThread())
+        .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<ZhutiList>() {
           @Override public void onCompleted() {
