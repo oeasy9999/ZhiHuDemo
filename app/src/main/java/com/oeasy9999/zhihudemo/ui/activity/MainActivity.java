@@ -98,6 +98,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void switchToZhuanlan() {
+    //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new TabsFragment()).commit();
     mToolbar.setTitle(R.string.zhuanlan);
   }
 }

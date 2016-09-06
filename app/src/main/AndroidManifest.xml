@@ -39,6 +39,9 @@
         android:process=":remote"
         android:theme="@style/AppTheme.NoActionBar.Translucent"/>
 
+    <activity android:name=".ui.activity.ThemeActivity"
+      android:theme="@style/AppTheme.NoActionBar.Translucent"/>
+
   </application>
 
 </manifest>

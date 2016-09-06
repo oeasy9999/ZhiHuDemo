@@ -73,7 +73,12 @@ public class NewsDetailActivity extends BaseActivity implements IView<NewsDetail
       Story story = (Story) serializable;
       id = story.getId();
       mCollapsingToolbar.setTitle(story.getTitle());
-      ImageUtils.loadWithPlaceholder(this, story.getImages()[0], R.drawable.placeholder, mImgNewsDetail);
+      if (story.getImages() != null) {
+      //  mImgNewsDetail.setImageResource(R.drawable.placeholder);
+      //} else {
+        ImageUtils.loadWithPlaceholder(this, story.getImages()[0], R.drawable.placeholder,
+            mImgNewsDetail);
+      }
     } else if (serializable instanceof TopStory){
       TopStory topStory = (TopStory) serializable;
       id = topStory.getId();

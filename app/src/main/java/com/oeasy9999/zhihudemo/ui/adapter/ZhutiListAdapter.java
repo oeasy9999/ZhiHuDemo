@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Zhuti;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import java.util.List;
 
@@ -19,10 +20,12 @@ public class ZhutiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
   private Context mContext;
   private List<Zhuti> zhutiList;
+  private OnItemClickListener mListener;
 
-  public ZhutiListAdapter(Context context, List<Zhuti> zhutiList) {
+  public ZhutiListAdapter(Context context, List<Zhuti> zhutiList, OnItemClickListener listener) {
     this.mContext = context;
     this.zhutiList = zhutiList;
+    this.mListener = listener;
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,6 +40,11 @@ public class ZhutiListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
       ImageUtils.load(mContext, itemViewHolder.zhuti.getThumbnail(), itemViewHolder.imgThumbnail);
       itemViewHolder.txtName.setText(itemViewHolder.zhuti.getName());
       itemViewHolder.txtDesc.setText(itemViewHolder.zhuti.getDescription());
+      itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+          if (null != mListener) mListener.onItemClick(itemViewHolder);
+        }
+      });
     }
   }
 

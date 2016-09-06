@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+  <android.support.design.widget.AppBarLayout android:id="@+id/app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_220dp"
+      android:fitsSystemWindows="true"
+      android:theme="@style/AppTheme.AppBarOverlay">
+    <android.support.design.widget.CollapsingToolbarLayout android:id="@+id/collapsing_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:contentScrim="?attr/colorPrimary"
+        app:expandedTitleMarginEnd="@dimen/margin_50dp"
+        app:expandedTitleMarginStart="@dimen/margin_40dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:expandedTitleGravity="center">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fitsSystemWindows="true"
+          app:layout_anchor="@id/app_bar"
+          app:layout_collapseMode="pin"
+          app:layout_collapseParallaxMultiplier="0.7">
+        <ImageView android:id="@+id/img_theme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
+        <TextView android:id="@+id/txt_theme_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignLeft="@+id/txt_theme_subtitle"
+            android:layout_above="@+id/txt_theme_subtitle"
+            android:textSize="@dimen/text_size_18sp"
+            />
+        <TextView android:id="@+id/txt_theme_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:padding="@dimen/padding_10dp"
+            android:background="@color/halfer_transparent"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/text_size_16sp"
+            android:text="主题表述，副标题"/>
+      </RelativeLayout>
+      <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          app:layout_collapseMode="pin"
+          app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+
+    </android.support.design.widget.CollapsingToolbarLayout>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <android.support.v4.widget.SwipeRefreshLayout
+      android:id="@+id/swipe_refresh_widget"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+  </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>

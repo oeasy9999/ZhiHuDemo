@@ -1,5 +1,6 @@
 package com.oeasy9999.zhihudemo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,19 +15,25 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
+import com.oeasy9999.zhihudemo.model.entity.Zhuti;
 import com.oeasy9999.zhihudemo.model.entity.ZhutiList;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.IPresenter;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhutiPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.IView;
+import com.oeasy9999.zhihudemo.ui.activity.ThemeActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.ZhutiListAdapter;
 
 /**
  * Created by oeasy9999 on 2016/9/3.
  */
-public class ZhutiFragment extends BaseFragment implements IView<ZhutiList>, SwipeRefreshLayout.OnRefreshListener{
+public class ZhutiFragment extends BaseFragment
+    implements IView<ZhutiList>, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
 
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
+
+  public static final String TAG = "ZhutiFragment测试";
   private IPresenter zhutiPresenter;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +69,7 @@ public class ZhutiFragment extends BaseFragment implements IView<ZhutiList>, Swi
 
   @Override public void showData(ZhutiList zhutiList) {
     //Log.i("ZhutiFragment哈哈哈", zhutiList.size()+"");
-    ZhutiListAdapter adapter = new ZhutiListAdapter(getActivity(), zhutiList.getZhutis());
+    ZhutiListAdapter adapter = new ZhutiListAdapter(getActivity(), zhutiList.getZhutis(), this);
     mRecyclerView.setAdapter(adapter);
     adapter.notifyDataSetChanged();
   }
@@ -78,5 +85,24 @@ public class ZhutiFragment extends BaseFragment implements IView<ZhutiList>, Swi
 
   @Override public void showLoadFailMsg() {
     Toast.makeText(getActivity(), "加载失败！", Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void onItemClick(RecyclerView.ViewHolder holder) {
+    if (holder instanceof ZhutiListAdapter.ItemViewHolder) {
+      ZhutiListAdapter.ItemViewHolder itemViewHolder = (ZhutiListAdapter.ItemViewHolder) holder;
+      Zhuti zhuti = itemViewHolder.zhuti;
+      if (zhuti == null) Log.i(TAG, "空三孔空");
+      Log.i(TAG, zhuti.getName()+"-->"+zhuti.getId());
+      //Bundle bundle = new Bundle();
+      //bundle.putSerializable("theme", zhuti);
+      //getActivity().getSupportFragmentManager()
+      //    .beginTransaction()
+      //    .replace(R.id.content_main, NewsFragment.newInstance(bundle))
+      //    .addToBackStack(null)
+      //    .commit();
+      Intent intent = new Intent(getActivity(), ThemeActivity.class);
+      intent.putExtra("theme", zhuti);
+      startActivity(intent);
+    }
   }
 }
