@@ -17,6 +17,7 @@ import com.oeasy9999.zhihudemo.mvp.presenter.MainPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.MainView;
 import com.oeasy9999.zhihudemo.ui.fragment.RemenFragment;
 import com.oeasy9999.zhihudemo.ui.fragment.RibaoFragment;
+import com.oeasy9999.zhihudemo.ui.fragment.TabsFragment;
 import com.oeasy9999.zhihudemo.ui.fragment.ZhutiFragment;
 
 public class MainActivity extends BaseActivity
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void switchToZhuanlan() {
-    //getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new TabsFragment()).commit();
+    getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new TabsFragment()).commit();
     mToolbar.setTitle(R.string.zhuanlan);
   }
 }

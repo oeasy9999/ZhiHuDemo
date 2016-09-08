@@ -97,7 +97,7 @@ public class ZhutiFragment extends BaseFragment
       //bundle.putSerializable("theme", zhuti);
       //getActivity().getSupportFragmentManager()
       //    .beginTransaction()
-      //    .replace(R.id.content_main, NewsFragment.newInstance(bundle))
+      //    .replace(R.id.content_main, ZhuanlanFragment.newInstance(bundle))
       //    .addToBackStack(null)
       //    .commit();
       Intent intent = new Intent(getActivity(), ThemeActivity.class);

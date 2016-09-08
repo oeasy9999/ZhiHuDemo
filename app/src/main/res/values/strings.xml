@@ -11,4 +11,13 @@
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
   <string name="shared_img">shared_img</string>
+  <string name="tab_tech">产品·互联网</string>
+  <string name="tab_photography">旅行·摄影</string>
+  <string name="tab_music_film">音乐·影视</string>
+  <string name="tab_life_talks">生活·杂谈</string>
+  <string name="tab_psychology">情感·心理</string>
+  <string name="tab_financial">创业·金融</string>
+  <string name="tab_zhihu">知乎·程序员</string>
+  <string name="popularity_num"><![CDATA[<font color=\"#06BAF8\">%1$s</font>]]>&#160;人关注</string>
+  <string name="comment_num"><![CDATA[<font color=\"#06BAF8\">%1$s</font>]]>&#160;篇文章</string>
 </resources>

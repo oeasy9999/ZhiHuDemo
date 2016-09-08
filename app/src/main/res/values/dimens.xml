@@ -38,6 +38,7 @@
   <dimen name="text_size_34sp">34sp</dimen>
   <dimen name="text_size_45sp">45sp</dimen>
   <!-- height -->
+  <dimen name="height_0dp">0dp</dimen>
   <dimen name="height_0.25dp">0.25dp</dimen>
   <dimen name="height_0.5dp">0.5dp</dimen>
   <dimen name="height_1dp">1dp</dimen>
@@ -49,6 +50,7 @@
   <dimen name="height_58dp">58dp</dimen>
   <dimen name="height_60dp">60dp</dimen>
   <dimen name="height_70dp">70dp</dimen>
+  <dimen name="height_72dp">72dp</dimen>
   <dimen name="height_80dp">80dp</dimen>
   <dimen name="height_100dp">100dp</dimen>
   <dimen name="height_200dp">200dp</dimen>
@@ -61,12 +63,14 @@
   <dimen name="width_18dp">18dp</dimen>
   <dimen name="width_25dp">25dp</dimen>
   <dimen name="width_50dp">50dp</dimen>
-  <dimen name="width_60dp">60dp</dimen>
   <dimen name="width_56dp">56dp</dimen>
+  <dimen name="width_60dp">60dp</dimen>
+  <dimen name="width_72dp">72dp</dimen>
   <dimen name="width_80dp">80dp</dimen>
   <dimen name="width_100dp">100dp</dimen>
   <dimen name="width_200dp">200dp</dimen>
   <dimen name="width_280dp">280dp</dimen>
   <!-- radiue -->
+  <dimen name="radiue_5dp">5dp</dimen>
   <dimen name="radiue_10dp">10dp</dimen>
 </resources>
