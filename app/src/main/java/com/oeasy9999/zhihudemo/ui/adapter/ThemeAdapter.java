@@ -46,7 +46,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
       itemViewHolder.mStoryTitle.setText(itemViewHolder.story.getTitle());
       itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View v) {
-          listener.onItemClick(itemViewHolder);
+          if (listener != null) listener.onItemClick(itemViewHolder);
         }
       });
     }

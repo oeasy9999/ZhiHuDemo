@@ -15,4 +15,5 @@
   <color name="halfer_white">#55FFFFFF</color>
   <color name="popularityColor">#FFC7C7</color>
   <color name="commentColor">#CCCCFF</color>
+  <color name="lightGrey">#E6E6E6</color>
 </resources>

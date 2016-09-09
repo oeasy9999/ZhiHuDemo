@@ -48,7 +48,7 @@ public class ThemeActivity extends BaseActivity
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.fragment_theme_detail);
+    setContentView(R.layout.activity_theme_detail);
     ButterKnife.bind(this);
     initToolbar();
     initContent();

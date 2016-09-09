@@ -1,5 +1,6 @@
 package com.oeasy9999.zhihudemo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,9 +15,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Zhuanlan;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhuanlanPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.ZhuanlanView;
 import com.oeasy9999.zhihudemo.ui.activity.MainActivity;
+import com.oeasy9999.zhihudemo.ui.activity.ZhuanlanPostsActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.ZhuanlanAdapter;
 import java.util.List;
 
@@ -24,7 +27,7 @@ import java.util.List;
  * Created by oeasy9999 on 2016/9/5.
  */
 public class ZhuanlanFragment extends BaseFragment
-    implements ZhuanlanView, SwipeRefreshLayout.OnRefreshListener {
+    implements ZhuanlanView, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
   public static final int TYPE_HULIANWANG = 0;
   public static final int TYPE_SHEYING = 1;
   public static final int TYPE_YINGSHI = 2;
@@ -113,7 +116,7 @@ public class ZhuanlanFragment extends BaseFragment
   }
 
   @Override public void showData(List<Zhuanlan> data) {
-    ZhuanlanAdapter adapter = new ZhuanlanAdapter((MainActivity) getActivity(), data);
+    ZhuanlanAdapter adapter = new ZhuanlanAdapter((MainActivity) getActivity(), data, this);
     mRecyclerView.setAdapter(adapter);
     adapter.notifyDataSetChanged();
   }
@@ -128,5 +131,18 @@ public class ZhuanlanFragment extends BaseFragment
 
   @Override public void showLoadFailMsg() {
 
+  }
+
+  @Override public void onItemClick(RecyclerView.ViewHolder holder) {
+    if (holder instanceof ZhuanlanAdapter.ItemViewHolder) {
+      ZhuanlanAdapter.ItemViewHolder itemViewHolder = (ZhuanlanAdapter.ItemViewHolder) holder;
+      Zhuanlan zhuanlan = itemViewHolder.zhuanlan;
+      Intent intent = new Intent(getActivity(), ZhuanlanPostsActivity.class);
+      //intent.putExtra("zhuanlan", zhuanlan);
+      intent.putExtra("slug", zhuanlan.getSlug());
+      intent.putExtra("title", zhuanlan.getName());
+      intent.putExtra("postscount", zhuanlan.getPostCount());
+      startActivity(intent);
+    }
   }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.ZhiHuApp;
 import com.oeasy9999.zhihudemo.model.entity.Zhuanlan;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import java.util.List;
 
@@ -22,10 +23,12 @@ public class ZhuanlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
   private static final String TAG = "ZhuanlanAdapter测试";
   private Context context;
   private List<Zhuanlan> zhuanlanList;
+  private OnItemClickListener listener;
 
-  public ZhuanlanAdapter(Context context, List<Zhuanlan> zhuanlans) {
+  public ZhuanlanAdapter(Context context, List<Zhuanlan> zhuanlans, OnItemClickListener listener) {
     this.context = context;
     this.zhuanlanList = zhuanlans;
+    this.listener = listener;
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,7 +40,7 @@ public class ZhuanlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     //Log.i(TAG, "------------>");
     if (holder instanceof ItemViewHolder) {
-      ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+      final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
       //Log.i(TAG, zhuanlanList.get(position).getName());
       itemViewHolder.zhuanlan = zhuanlanList.get(position);
       //Log.i(TAG, itemViewHolder.zhuanlan.getName());
@@ -52,6 +55,11 @@ public class ZhuanlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
           .getString(R.string.comment_num, itemViewHolder.zhuanlan.getPostCount());
       itemViewHolder.txtArticleCount.setText(Html.fromHtml(strCommentCount));
       itemViewHolder.txtDesc.setText(itemViewHolder.zhuanlan.getDescription());
+      itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+          if (null != listener) listener.onItemClick(itemViewHolder);
+        }
+      });
     }
   }
 

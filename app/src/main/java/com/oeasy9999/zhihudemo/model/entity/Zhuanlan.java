@@ -8,38 +8,24 @@ import java.io.Serializable;
  * Created by oeasy9999 on 2016/9/7.
  */
 public class Zhuanlan implements Serializable, Data {
-  //@SerializedName("followersCount") private int followersCount;
-  //@SerializedName("postsCount") private int postsCount;
-  //@SerializedName("name") private String name;
-  //@SerializedName("description") private String description;
-  //@SerializedName("avatar") private Avatar avatar;
-  //private String avatarUrl;
-  @SerializedName("followersCount")
-  private int followerCount;
 
-  @SerializedName("description")
-  private String description;
+  @SerializedName("followersCount") private int followerCount;
 
-  @SerializedName("creator")
-  private Author author;
+  @SerializedName("description") private String description;
 
-  @SerializedName("href")
-  private String href;
+  @SerializedName("creator") private Author author;
 
-  @SerializedName("slug")
-  private String slug;
+  @SerializedName("href") private String href;
 
-  @SerializedName("name")
-  private String name;
+  @SerializedName("slug") private String slug;
 
-  @SerializedName("url")
-  private String url;
+  @SerializedName("name") private String name;
 
-  @SerializedName("avatar")
-  private Avatar avatar;
+  @SerializedName("url") private String url;
 
-  @SerializedName("postsCount")
-  private int postCount;
+  @SerializedName("avatar") private Avatar avatar;
+
+  @SerializedName("postsCount") private int postCount;
 
   public int getFollowerCount() {
     return followerCount;
@@ -120,10 +106,6 @@ public class Zhuanlan implements Serializable, Data {
     //String str = "https://pic2.zhimg.com/" + id + "_l.jpg";
     return url;
   }
-
-  //public void setAvatarUrl(String avatarUrl) {
-  //  this.avatarUrl = avatarUrl;
-  //}
 
   class Avatar implements Serializable {
     @SerializedName("id") private String id;

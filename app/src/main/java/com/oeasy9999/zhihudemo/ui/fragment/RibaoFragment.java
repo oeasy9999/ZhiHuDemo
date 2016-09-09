@@ -26,11 +26,9 @@ import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.activity.NewsDetailActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.RibaoAdapter;
-import java.text.SimpleDateFormat;
+import com.oeasy9999.zhihudemo.utils.TimeUtils;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by oeasy9999 on 2016/8/25.
@@ -124,7 +122,7 @@ public class RibaoFragment extends BaseFragment
   }
 
   @Override public void showData(Ribao ribao) {
-    Story tip = new Story(1, convertDate(ribao.getData()));
+    Story tip = new Story(1, TimeUtils.convertDate(ribao.getData()));
     List<Story> stories = ribao.getStories();
     stories.add(0, tip);
     mStories.addAll(stories);
@@ -142,19 +140,19 @@ public class RibaoFragment extends BaseFragment
     }
   }
 
-  private String convertDate(String date) {
-    String today = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
-    if (today.equals(date)) {
-      return "今日热闻";
-    }
-    String result = date.substring(0, 4);
-    result += "年";
-    result += date.substring(4, 6);
-    result += "月";
-    result += date.substring(6, 8);
-    result += "日";
-    return result;
-  }
+  //private String convertDate(String date) {
+  //  String today = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+  //  if (today.equals(date)) {
+  //    return "今日热闻";
+  //  }
+  //  String result = date.substring(0, 4);
+  //  result += "年";
+  //  result += date.substring(4, 6);
+  //  result += "月";
+  //  result += date.substring(6, 8);
+  //  result += "日";
+  //  return result;
+  //}
 
   @Override public void hideProgress() {
     mSwipeRefreshWidget.setRefreshing(false);

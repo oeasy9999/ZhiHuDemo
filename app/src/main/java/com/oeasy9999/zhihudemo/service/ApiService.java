@@ -16,4 +16,11 @@ public class ApiService {
         .baseUrl(API.BASE)
         .build();
   }
+  public static Retrofit createZhuanlanApiService() {
+    return new Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .baseUrl(API.BASE_ZHUANLAN)
+        .build();
+  }
 }
