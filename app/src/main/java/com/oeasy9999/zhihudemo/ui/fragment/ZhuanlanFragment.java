@@ -60,7 +60,7 @@ public class ZhuanlanFragment extends BaseFragment
   }
 
   @Nullable @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+  public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_recycler, container, false);
     ButterKnife.bind(this, view);
@@ -126,7 +126,9 @@ public class ZhuanlanFragment extends BaseFragment
   }
 
   @Override public void hideProgress() {
-    mSwipeRefreshWidget.setRefreshing(false);
+    if (mSwipeRefreshWidget != null) {//数据未加载完退出时报setRefreshing()null错误，
+      mSwipeRefreshWidget.setRefreshing(false);
+    }
   }
 
   @Override public void showLoadFailMsg() {

@@ -11,17 +11,26 @@ public class ZhuanlanPost implements Serializable, Data{
   @SerializedName("author") private Author author;
   @SerializedName("commentsCount") private int commentsCount;
   @SerializedName("likesCount") private int likesCount;
-  @SerializedName("slug") private long slug;
+  @SerializedName("slug") private int slug;
   @SerializedName("title") private String title;
   @SerializedName("titleImage") private String titleImage;
   @SerializedName("publishedTime") private String publishedTime;
-
-  public Author getAuthor() {
-    return author;
-  }
+  @SerializedName("content") private String content;
 
   public String getAuthorName() {
     return author.getName();
+  }
+
+  public String getAvatarUrl() {
+    String id = getAuthor().getAvatar().getId();
+    String template = getAuthor().getAvatar().getTemplate();
+    String url = template.replace("{id}", id).replace("{size}", "l");
+    //String str = "https://pic2.zhimg.com/" + id + "_l.jpg";
+    return url;
+  }
+
+  public Author getAuthor() {
+    return author;
   }
 
   public void setAuthor(Author author) {
@@ -44,11 +53,11 @@ public class ZhuanlanPost implements Serializable, Data{
     this.likesCount = likesCount;
   }
 
-  public long getSlug() {
+  public int getSlug() {
     return slug;
   }
 
-  public void setSlug(long slug) {
+  public void setSlug(int slug) {
     this.slug = slug;
   }
 
@@ -74,6 +83,14 @@ public class ZhuanlanPost implements Serializable, Data{
 
   public void setPublishedTime(String publishedTime) {
     this.publishedTime = publishedTime;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
   }
 
   class Author implements Serializable {

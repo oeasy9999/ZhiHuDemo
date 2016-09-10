@@ -16,4 +16,7 @@ public interface ZhuanlanService {
       @Query("limit") int num,
       @Query("offset") int from
   );
+  //@GET("posts/{slug}") Observable<ZhuanlanPost> getZhuanlanDetail(
+  //    @Path("slug") int slug
+  //);
 }

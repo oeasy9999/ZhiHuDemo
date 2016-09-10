@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.ZhuanlanPost;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import com.oeasy9999.zhihudemo.utils.TimeUtils;
 import java.util.List;
@@ -23,10 +24,12 @@ public class ZhuanlanPostsAdapter extends RecyclerView.Adapter<RecyclerView.View
   private Context context;
   private List<ZhuanlanPost> zhuanlanPosts;
   public boolean showFooter = true;
+  private OnItemClickListener listener;
 
-  public ZhuanlanPostsAdapter(Context context, List<ZhuanlanPost> zhuanlanPosts) {
+  public ZhuanlanPostsAdapter(Context context, List<ZhuanlanPost> zhuanlanPosts, OnItemClickListener listener) {
     this.context = context;
     this.zhuanlanPosts = zhuanlanPosts;
+    this.listener = listener;
   }
 
   public void setZhuanlanPosts(List<ZhuanlanPost> zhuanlanPosts) {
@@ -46,7 +49,7 @@ public class ZhuanlanPostsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof ItemViewHolder) {
-      ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
+      final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
       itemViewHolder.zhuanlanPost = zhuanlanPosts.get(position);
       if (itemViewHolder.zhuanlanPost.getTitleImage() == null || itemViewHolder.zhuanlanPost.getTitleImage().equals("")) {
         itemViewHolder.imgZhuanlanPost.setVisibility(View.GONE);
@@ -59,6 +62,11 @@ public class ZhuanlanPostsAdapter extends RecyclerView.Adapter<RecyclerView.View
       itemViewHolder.txtPublishTime.setText(TimeUtils.convertPublishTime(itemViewHolder.zhuanlanPost.getPublishedTime()));
       itemViewHolder.txtPopularity.setText(String.valueOf(itemViewHolder.zhuanlanPost.getLikesCount()));
       itemViewHolder.txtCommentNum.setText(String.valueOf(itemViewHolder.zhuanlanPost.getCommentsCount()));
+      itemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+          if (null != listener) listener.onItemClick(itemViewHolder);
+        }
+      });
     }
   }
 

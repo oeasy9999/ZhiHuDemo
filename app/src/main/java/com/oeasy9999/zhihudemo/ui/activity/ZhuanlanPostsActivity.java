@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.ZhuanlanPost;
+import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhuanlanPostsPresenter;
 import com.oeasy9999.zhihudemo.ui.adapter.ZhuanlanPostsAdapter;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.List;
  * Created by oeasy9999 on 2016/9/8.
  */
 public class ZhuanlanPostsActivity extends BaseActivity implements
-    SwipeRefreshLayout.OnRefreshListener{
+    SwipeRefreshLayout.OnRefreshListener, OnItemClickListener{
 
   @Bind(R.id.toolbar) Toolbar mToolbar;
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
@@ -106,7 +107,7 @@ public class ZhuanlanPostsActivity extends BaseActivity implements
     if (postsCount <= zhuanlanPosts.size()) adapter.showFooter = false;
     //boolean first = true;
     if (adapter == null) {
-      adapter = new ZhuanlanPostsAdapter(this, zhuanlanPosts);
+      adapter = new ZhuanlanPostsAdapter(ZhuanlanPostsActivity.this, zhuanlanPosts, this);
       mRecyclerView.setAdapter(adapter);
       //first = false;
     } else {
@@ -132,5 +133,14 @@ public class ZhuanlanPostsActivity extends BaseActivity implements
       zhuanlanPosts.clear();
     }
     zhuanlanPostsPresenter.loadData(slug, 0);
+  }
+
+  @Override public void onItemClick(RecyclerView.ViewHolder holder) {
+    if (holder instanceof ZhuanlanPostsAdapter.ItemViewHolder) {
+      ZhuanlanPostsAdapter.ItemViewHolder itemViewHolder = (ZhuanlanPostsAdapter.ItemViewHolder) holder;
+      Intent intent = new Intent(this, ZhuanlanDetailActivity.class);
+      intent.putExtra("story", itemViewHolder.zhuanlanPost);
+      startActivity(intent);
+    }
   }
 }
