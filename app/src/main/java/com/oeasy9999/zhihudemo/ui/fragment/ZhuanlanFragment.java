@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.oeasy9999.zhihudemo.R;
@@ -45,6 +46,7 @@ public class ZhuanlanFragment extends BaseFragment
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
   private LinearLayoutManager layoutManager;
+  private ProgressBar progressBar;
 
   public static ZhuanlanFragment newInstance(int type) {
     Bundle args = new Bundle();

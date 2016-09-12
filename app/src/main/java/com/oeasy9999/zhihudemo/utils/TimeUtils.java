@@ -58,4 +58,33 @@ public class TimeUtils {
     }
     return "未知时间";
   }
+
+  public static String convertCreatedTime(String time) {
+    String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+    String createdDate = time.substring(0, 10);
+    String createdMonth = time.substring(0, 7);
+    String todayMonth = today.substring(0, 7);
+    try {
+      long s = TimeUnit.MILLISECONDS.toSeconds(new Date().getTime() - FORMAT.parse(time).getTime());
+      if (today.equals(createdDate)) {
+        long count = s / HOUR;
+        if (count != 0) {
+          return count + "小时前";
+        }
+        count = s / MINUTE;
+        if (count != 0) {
+          return count + "分钟前";
+        }
+        return "刚刚";
+      } else {
+        if (todayMonth.equals(createdMonth)) {
+          return time.substring(5, 10);
+        }
+        return createdDate;
+      }
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return "未知时间";
+  }
 }

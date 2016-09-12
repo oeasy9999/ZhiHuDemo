@@ -1,5 +1,6 @@
 package com.oeasy9999.zhihudemo.service;
 
+import com.oeasy9999.zhihudemo.model.entity.ZhuanlanComment;
 import com.oeasy9999.zhihudemo.model.entity.ZhuanlanPost;
 import java.util.List;
 import retrofit2.http.GET;
@@ -19,4 +20,9 @@ public interface ZhuanlanService {
   //@GET("posts/{slug}") Observable<ZhuanlanPost> getZhuanlanDetail(
   //    @Path("slug") int slug
   //);
+  @GET("{slug}/comments") Observable<List<ZhuanlanComment>> getZhuanlanComment(
+      @Path("slug") int slug,
+      @Query("limit") int num,
+      @Query("offset") int offset
+  );
 }

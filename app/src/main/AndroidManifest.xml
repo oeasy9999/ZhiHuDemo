@@ -48,6 +48,9 @@
     <activity android:name=".ui.activity.ZhuanlanDetailActivity"
       android:theme="@style/AppTheme.NoActionBar.Translucent"/>
 
+    <activity android:name=".ui.activity.ZhuanlanCommentActivity"
+      android:theme="@style/AppTheme.NoActionBar.Translucent"/>
+
   </application>
 
 </manifest>

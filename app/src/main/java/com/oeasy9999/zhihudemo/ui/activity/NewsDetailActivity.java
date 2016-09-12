@@ -59,8 +59,7 @@ public class NewsDetailActivity extends BaseActivity implements IView<NewsDetail
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
+      @Override public void onClick(View view) {
         onBackPressed();
       }
     });
@@ -74,21 +73,23 @@ public class NewsDetailActivity extends BaseActivity implements IView<NewsDetail
       id = story.getId();
       mCollapsingToolbar.setTitle(story.getTitle());
       if (story.getImages() != null) {
-      //  mImgNewsDetail.setImageResource(R.drawable.placeholder);
-      //} else {
+        //  mImgNewsDetail.setImageResource(R.drawable.placeholder);
+        //} else {
         ImageUtils.loadWithPlaceholder(this, story.getImages()[0], R.drawable.placeholder,
             mImgNewsDetail);
       }
-    } else if (serializable instanceof TopStory){
+    } else if (serializable instanceof TopStory) {
       TopStory topStory = (TopStory) serializable;
       id = topStory.getId();
       mCollapsingToolbar.setTitle(topStory.getTitle());
-      ImageUtils.loadWithPlaceholder(this, topStory.getImage(), R.drawable.placeholder, mImgNewsDetail);
+      ImageUtils.loadWithPlaceholder(this, topStory.getImage(), R.drawable.placeholder,
+          mImgNewsDetail);
     } else if (serializable instanceof HotNews) {
       HotNews hotNews = (HotNews) serializable;
       id = hotNews.getId();
       mCollapsingToolbar.setTitle(hotNews.getTitle());
-      ImageUtils.loadWithPlaceholder(this, hotNews.getThumbnail(), R.drawable.placeholder, mImgNewsDetail);
+      ImageUtils.loadWithPlaceholder(this, hotNews.getThumbnail(), R.drawable.placeholder,
+          mImgNewsDetail);
     }
     mNewsDetailPresenter = new NewsDetailPresenterImpl(this);
     initWebView();
@@ -104,10 +105,10 @@ public class NewsDetailActivity extends BaseActivity implements IView<NewsDetail
     settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
     settings.setAppCacheEnabled(true);
     settings.setDomStorageEnabled(true);
-    mWebView.setWebChromeClient(new WebChromeClient(){
+    mWebView.setWebChromeClient(new WebChromeClient() {
       @Override public void onProgressChanged(final WebView view, int newProgress) {
         super.onProgressChanged(view, newProgress);
-        if(newProgress == 100) {
+        if (newProgress == 100) {
           view.postDelayed(new Runnable() {
             @Override public void run() {
               view.setVisibility(View.VISIBLE);
@@ -125,7 +126,8 @@ public class NewsDetailActivity extends BaseActivity implements IView<NewsDetail
 
   @Override public void showData(NewsDetail newsDetail) {
     mNewsDetail = newsDetail;
-    String css = "<link rel=\"stylesheet\" href=\"file:///android_asset/css/news.css\" type=\"text/css\">";
+    String css =
+        "<link rel=\"stylesheet\" href=\"file:///android_asset/css/news.css\" type=\"text/css\">";
     String html = "<html><head>" + css + "</head><body>" + newsDetail.getBody() + "</body></html>";
     html = html.replace("<div class=\"img-place-holder\">", "");
     mWebView.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);

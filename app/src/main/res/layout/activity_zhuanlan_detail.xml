@@ -35,12 +35,7 @@
 
   </android.support.design.widget.AppBarLayout>
 
-  <ProgressBar android:id="@+id/progress"
-      style="?android:attr/progressBarStyleSmall"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:visibility="visible"/>
+
   <android.support.v4.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -49,6 +44,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
+      <ProgressBar android:id="@+id/progress"
+          style="?android:attr/progressBarStyleSmall"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:visibility="visible"/>
       <ImageView android:id="@+id/img_avatar"
           android:layout_width="@dimen/width_50dp"
           android:layout_height="@dimen/height_50dp"
@@ -101,5 +102,7 @@
       app:layout_anchor="@id/app_bar"
       app:layout_anchorGravity="bottom|end"
       android:src="@android:drawable/ic_menu_share"/>
+
+  <include layout="@layout/bottom_layout"/>
 
 </android.support.design.widget.CoordinatorLayout>

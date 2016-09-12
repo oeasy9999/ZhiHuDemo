@@ -102,14 +102,13 @@ public class ZhuanlanPostsActivity extends BaseActivity implements
 
   public void showData(List<ZhuanlanPost> data) {
     zhuanlanPosts.addAll(data);
+    if (zhuanlanPosts.size() == 0) return;
     Log.i(TAG, zhuanlanPosts.size()+"-->"+postsCount);
     //adapter.showFooter = true;
-    if (postsCount <= zhuanlanPosts.size()) adapter.showFooter = false;
-    //boolean first = true;
+    if (adapter != null && postsCount <= zhuanlanPosts.size()) adapter.showFooter = false;
     if (adapter == null) {
       adapter = new ZhuanlanPostsAdapter(ZhuanlanPostsActivity.this, zhuanlanPosts, this);
       mRecyclerView.setAdapter(adapter);
-      //first = false;
     } else {
       adapter.notifyDataSetChanged();
     }
@@ -118,7 +117,6 @@ public class ZhuanlanPostsActivity extends BaseActivity implements
 
   public void showProgress() {
     mSwipeRefreshWidget.setRefreshing(true);
-    //adapter.showFooter = false;
   }
 
   public void hideProgress() {

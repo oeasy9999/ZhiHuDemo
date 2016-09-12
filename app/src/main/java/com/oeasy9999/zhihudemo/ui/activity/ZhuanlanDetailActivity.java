@@ -1,6 +1,7 @@
 package com.oeasy9999.zhihudemo.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -15,8 +16,10 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.ZhuanlanPost;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhuanlanDetailPresenter;
@@ -42,7 +45,12 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
   @Bind(R.id.img_avatar) ImageView mImgAvatar;
   @Bind(R.id.txt_zhuanlan_detail_name) TextView mTxtZhuanlanDetailName;
   @Bind(R.id.txt_zhuanlan_detail_publishtime) TextView mTxtZhuanlanDetailPublishtime;
+  @Bind(R.id.like) ImageView like;
   private ZhuanlanDetailPresenter zhuanlanDetailPresenter;
+  private int slug;
+  private String title;
+  boolean hasLiked = false;
+  private int commentsCount;
   //private WebView mWebView;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,11 +79,10 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
     Serializable serializable = getIntent().getSerializableExtra("story");
     if (serializable instanceof ZhuanlanPost) {
       ZhuanlanPost zhuanlanPost = (ZhuanlanPost) serializable;
-      mCollapsingToolbar.setTitle(zhuanlanPost.getTitle());
-      ImageUtils.load(this, zhuanlanPost.getAvatarUrl(), mImgAvatar);
-      mTxtZhuanlanDetailName.setText(zhuanlanPost.getAuthorName());
-      mTxtZhuanlanDetailPublishtime.setText(TimeUtils.convertPublishTime(zhuanlanPost.getPublishedTime()));
-      int slug = zhuanlanPost.getSlug();
+      title = zhuanlanPost.getTitle();
+      slug = zhuanlanPost.getSlug();
+      commentsCount = zhuanlanPost.getCommentsCount();
+      mCollapsingToolbar.setTitle(title);
       if (zhuanlanPost.getTitleImage() != null || !zhuanlanPost.getTitleImage().equals("")) {
         ImageUtils.loadWithPlaceholder(this, zhuanlanPost.getTitleImage(), R.drawable.placeholder,
             mImgNewsDetail);
@@ -141,6 +148,10 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
   }
 
   @Override public void showData(ZhuanlanPost data) {
+    ImageUtils.load(this, data.getAvatarUrl(), mImgAvatar);
+    mTxtZhuanlanDetailName.setText(data.getAuthorName());
+    mTxtZhuanlanDetailPublishtime.setText(TimeUtils.convertPublishTime(data.getPublishedTime()));
+
     Log.i(TAG, data.getContent());
     String css =
         "<link rel=\"stylesheet\" href=\"file:///android_asset/css/master.css\" type=\"text/css\">";
@@ -169,6 +180,41 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
   }
 
   @Override public void showLoadFailMsg() {
+  }
 
+  @OnClick({ R.id.back, R.id.share, R.id.comment, R.id.like }) public void onClick(View view) {
+    switch (view.getId()) {
+      case R.id.back:
+        onBackPressed();
+        finish();
+        break;
+      case R.id.share:
+        shareUrl();
+        break;
+      case R.id.comment:
+        Intent intent = new Intent(this, ZhuanlanCommentActivity.class);
+        intent.putExtra("commentsCount", commentsCount);
+        intent.putExtra("slug", slug);
+        startActivity(intent);
+        break;
+      case R.id.like:
+        if (hasLiked) {
+          like.setImageResource(R.drawable.ic_like);
+          Toast.makeText(this, "点赞 -1", Toast.LENGTH_SHORT).show();
+          hasLiked = false;
+        } else {
+          hasLiked = true;
+          like.setImageResource(R.drawable.ic_liked);
+          Toast.makeText(this, "点赞 +1", Toast.LENGTH_SHORT).show();
+        }
+        break;
+    }
+  }
+
+  private void shareUrl() {
+    Intent shareIntent = new Intent().setAction(Intent.ACTION_SEND).setType("text/plain");
+    String shareText = title + " " + "https://zhuanlan.zhihu.com/p/" + slug;
+    shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+    startActivity(Intent.createChooser(shareIntent, "选择你要分享的应用"));
   }
 }
