@@ -5,12 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.ZhuanlanComment;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import com.oeasy9999.zhihudemo.utils.TimeUtils;
+import com.oeasy9999.zhihudemo.widget.CircleImageView;
 import java.util.List;
 
 /**
@@ -36,7 +36,7 @@ public class ZhuanlanCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
       itemViewHolder.zhuanlanComment = zhuanlanComments.get(position);
       if (itemViewHolder.zhuanlanComment.getAvatarUrl() != null) {
-        ImageUtils.load(context, itemViewHolder.zhuanlanComment.getAvatarUrl(), itemViewHolder.imgAvatar);
+        ImageUtils.loadCircleImage(context, itemViewHolder.zhuanlanComment.getAvatarUrl(), itemViewHolder.imgAvatar);
       }
       itemViewHolder.txtCommentName.setText(itemViewHolder.zhuanlanComment.getAuthorName());
       itemViewHolder.txtCommentContent.setText(itemViewHolder.zhuanlanComment.getContent());
@@ -51,7 +51,7 @@ public class ZhuanlanCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
   public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView imgAvatar;
+    private CircleImageView imgAvatar;
     private TextView txtCommentName;
     private TextView txtCommentContent;
     private TextView txtCommentPublishTime;
@@ -60,7 +60,7 @@ public class ZhuanlanCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public ItemViewHolder(View itemView) {
       super(itemView);
-      imgAvatar = (ImageView) itemView.findViewById(R.id.img_avatar);
+      imgAvatar = (CircleImageView) itemView.findViewById(R.id.img_avatar);
       txtCommentName = (TextView) itemView.findViewById(R.id.txt_comment_name);
       txtCommentContent = (TextView) itemView.findViewById(R.id.txt_comment_content);
       txtCommentPublishTime = (TextView) itemView.findViewById(R.id.txt_comment_publishtime);

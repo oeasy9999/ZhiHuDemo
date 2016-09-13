@@ -1,6 +1,6 @@
 package com.oeasy9999.zhihudemo.mvp.model;
 
-import com.oeasy9999.zhihudemo.API;
+import com.oeasy9999.zhihudemo.service.API;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.mvp.interf.OnLoadListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.RibaoPresenterImpl;

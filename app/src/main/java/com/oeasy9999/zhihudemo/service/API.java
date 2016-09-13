@@ -1,4 +1,4 @@
-package com.oeasy9999.zhihudemo;
+package com.oeasy9999.zhihudemo.service;
 
 /**
  * Created by oeasy9999 on 2016/8/22.

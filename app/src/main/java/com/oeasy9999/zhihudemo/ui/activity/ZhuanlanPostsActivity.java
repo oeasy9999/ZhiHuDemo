@@ -81,6 +81,8 @@ public class ZhuanlanPostsActivity extends BaseActivity implements
     layoutManager = new LinearLayoutManager(this);
     mRecyclerView.setLayoutManager(layoutManager);
     mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    adapter = new ZhuanlanPostsAdapter(ZhuanlanPostsActivity.this, zhuanlanPosts, this);
+    mRecyclerView.setAdapter(adapter);
     mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);

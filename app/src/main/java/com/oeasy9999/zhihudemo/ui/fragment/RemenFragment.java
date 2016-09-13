@@ -22,6 +22,8 @@ import com.oeasy9999.zhihudemo.mvp.presenter.RemenPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.activity.NewsDetailActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.RemenAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/9/2.
@@ -34,6 +36,8 @@ public class RemenFragment extends BaseFragment implements IView<Remen>, SwipeRe
 
   private LinearLayoutManager layoutManager;
   private IPresenter mRemenPresenter;
+  private List<HotNews> hotNewses = new ArrayList<>();
+  private RemenAdapter remenAdapter;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -51,6 +55,8 @@ public class RemenFragment extends BaseFragment implements IView<Remen>, SwipeRe
     layoutManager = new LinearLayoutManager(getActivity());
     mRecyclerView.setLayoutManager(layoutManager);
     mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    remenAdapter = new RemenAdapter(getActivity(), hotNewses, this);
+    mRecyclerView.setAdapter(remenAdapter);
 
     onRefresh();
     return view;
@@ -66,9 +72,8 @@ public class RemenFragment extends BaseFragment implements IView<Remen>, SwipeRe
   }
 
   @Override public void showData(Remen remen) {
-    //Log.i("哈哈哈", hotNewses.size()+"");
-    RemenAdapter remenAdapter = new RemenAdapter(getActivity(), remen.getRecent(), this);
-    mRecyclerView.setAdapter(remenAdapter);
+    if (remen == null || remen.getRecent().size() == 0) return;
+    hotNewses.addAll(remen.getRecent());
     remenAdapter.notifyDataSetChanged();
   }
 

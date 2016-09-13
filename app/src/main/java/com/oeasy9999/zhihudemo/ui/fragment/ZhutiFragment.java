@@ -23,6 +23,8 @@ import com.oeasy9999.zhihudemo.mvp.presenter.ZhutiPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.activity.ThemeActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.ZhutiListAdapter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/9/3.
@@ -33,8 +35,10 @@ public class ZhutiFragment extends BaseFragment
   @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
 
-  public static final String TAG = "ZhutiFragment测试";
+  private static final String TAG = "ZhutiFragment测试";
+  private List<Zhuti> mZhutiList = new ArrayList<>();
   private IPresenter zhutiPresenter;
+  private ZhutiListAdapter adapter;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -53,6 +57,8 @@ public class ZhutiFragment extends BaseFragment
     //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
     mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    adapter = new ZhutiListAdapter(getActivity(), mZhutiList, this);
+    mRecyclerView.setAdapter(adapter);
 
     onRefresh();
     return view;
@@ -68,9 +74,7 @@ public class ZhutiFragment extends BaseFragment
   }
 
   @Override public void showData(ZhutiList zhutiList) {
-    //Log.i("ZhutiFragment哈哈哈", zhutiList.size()+"");
-    ZhutiListAdapter adapter = new ZhutiListAdapter(getActivity(), zhutiList.getZhutis(), this);
-    mRecyclerView.setAdapter(adapter);
+    mZhutiList.addAll(zhutiList.getZhutis());
     adapter.notifyDataSetChanged();
   }
 
@@ -79,7 +83,6 @@ public class ZhutiFragment extends BaseFragment
   }
 
   @Override public void hideProgress() {
-    Log.i("ZhutiFragment嘻嘻嘻", "隐藏");
     mSwipeRefreshWidget.setRefreshing(false);
   }
 

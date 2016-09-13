@@ -11,7 +11,7 @@ import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.HotNews;
 import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/9/2.
@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class RemenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private Context mContext;
-  private ArrayList<HotNews> hotNewses;
+  private List<HotNews> hotNewses;
   private OnItemClickListener mListener;
 
-  public RemenAdapter(Context context, ArrayList<HotNews> hotNewses, OnItemClickListener listener) {
+  public RemenAdapter(Context context, List<HotNews> hotNewses, OnItemClickListener listener) {
     this.mContext = context;
     this.hotNewses = hotNewses;
     this.mListener = listener;

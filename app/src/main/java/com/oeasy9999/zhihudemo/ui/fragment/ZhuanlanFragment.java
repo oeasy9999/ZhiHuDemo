@@ -19,9 +19,9 @@ import com.oeasy9999.zhihudemo.model.entity.Zhuanlan;
 import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.mvp.presenter.ZhuanlanPresenterImpl;
 import com.oeasy9999.zhihudemo.mvp.view.ZhuanlanView;
-import com.oeasy9999.zhihudemo.ui.activity.MainActivity;
 import com.oeasy9999.zhihudemo.ui.activity.ZhuanlanPostsActivity;
 import com.oeasy9999.zhihudemo.ui.adapter.ZhuanlanAdapter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public class ZhuanlanFragment extends BaseFragment
 
   private static final String TAG = "ZhuanlanFragment测试";
   private ZhuanlanPresenterImpl zhuanlanPresenter;
-  //List<Zhuanlan> zhuanlans = new ArrayList<>();
+  List<Zhuanlan> zhuanlans = new ArrayList<>();
   private int type;
   private String[] ids;
 
@@ -47,6 +47,7 @@ public class ZhuanlanFragment extends BaseFragment
   @Bind(R.id.swipe_refresh_widget) SwipeRefreshLayout mSwipeRefreshWidget;
   private LinearLayoutManager layoutManager;
   private ProgressBar progressBar;
+  private ZhuanlanAdapter adapter;
 
   public static ZhuanlanFragment newInstance(int type) {
     Bundle args = new Bundle();
@@ -73,6 +74,10 @@ public class ZhuanlanFragment extends BaseFragment
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     mRecyclerView.setLayoutManager(layoutManager);
     mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    adapter = new ZhuanlanAdapter(getActivity(), zhuanlans, this);
+    mRecyclerView.setAdapter(adapter);
+
     type = getArguments().getInt("type");
     Log.i(TAG, type + "号-->fragment");
     onRefresh();
@@ -118,9 +123,17 @@ public class ZhuanlanFragment extends BaseFragment
   }
 
   @Override public void showData(List<Zhuanlan> data) {
-    ZhuanlanAdapter adapter = new ZhuanlanAdapter((MainActivity) getActivity(), data, this);
-    mRecyclerView.setAdapter(adapter);
+    if (data == null || data.size() == 0) return;
+    zhuanlans.addAll(data);
     adapter.notifyDataSetChanged();
+
+    //if (adapter == null) {
+    //  adapter = new ZhuanlanAdapter(getActivity(), data, this);
+    //  Log.i(TAG, adapter.getItemCount()+"");
+    //  mRecyclerView.setAdapter(adapter);
+    //} else {
+    //  adapter.notifyDataSetChanged();
+    //}
   }
 
   @Override public void showProgress() {
@@ -142,7 +155,6 @@ public class ZhuanlanFragment extends BaseFragment
       ZhuanlanAdapter.ItemViewHolder itemViewHolder = (ZhuanlanAdapter.ItemViewHolder) holder;
       Zhuanlan zhuanlan = itemViewHolder.zhuanlan;
       Intent intent = new Intent(getActivity(), ZhuanlanPostsActivity.class);
-      //intent.putExtra("zhuanlan", zhuanlan);
       intent.putExtra("slug", zhuanlan.getSlug());
       intent.putExtra("title", zhuanlan.getName());
       intent.putExtra("postscount", zhuanlan.getPostCount());

@@ -26,6 +26,7 @@ import com.oeasy9999.zhihudemo.mvp.presenter.ZhuanlanDetailPresenter;
 import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import com.oeasy9999.zhihudemo.utils.TimeUtils;
+import com.oeasy9999.zhihudemo.widget.CircleImageView;
 import java.io.Serializable;
 
 /**
@@ -42,7 +43,7 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
   @Bind(R.id.fab) FloatingActionButton fab;
 
   private static final String TAG = "ZhuanlanDetail测试";
-  @Bind(R.id.img_avatar) ImageView mImgAvatar;
+  @Bind(R.id.img_avatar) CircleImageView mImgAvatar;
   @Bind(R.id.txt_zhuanlan_detail_name) TextView mTxtZhuanlanDetailName;
   @Bind(R.id.txt_zhuanlan_detail_publishtime) TextView mTxtZhuanlanDetailPublishtime;
   @Bind(R.id.like) ImageView like;
@@ -148,11 +149,10 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
   }
 
   @Override public void showData(ZhuanlanPost data) {
-    ImageUtils.load(this, data.getAvatarUrl(), mImgAvatar);
+    ImageUtils.loadCircleImage(this, data.getAvatarUrl(), mImgAvatar);
     mTxtZhuanlanDetailName.setText(data.getAuthorName());
     mTxtZhuanlanDetailPublishtime.setText(TimeUtils.convertPublishTime(data.getPublishedTime()));
 
-    Log.i(TAG, data.getContent());
     String css =
         "<link rel=\"stylesheet\" href=\"file:///android_asset/css/master.css\" type=\"text/css\">";
     String html = "<html><head>" + css + "</head><body>" + data.getContent() + "</body></html>";
@@ -182,12 +182,13 @@ public class ZhuanlanDetailActivity extends BaseActivity implements IView<Zhuanl
   @Override public void showLoadFailMsg() {
   }
 
-  @OnClick({ R.id.back, R.id.share, R.id.comment, R.id.like }) public void onClick(View view) {
+  @OnClick({ R.id.back, R.id.share, R.id.comment, R.id.like, R.id.fab}) public void onClick(View view) {
     switch (view.getId()) {
       case R.id.back:
         onBackPressed();
         finish();
         break;
+      case R.id.fab:
       case R.id.share:
         shareUrl();
         break;

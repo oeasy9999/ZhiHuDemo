@@ -16,7 +16,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.oeasy9999.zhihudemo.API;
+import com.oeasy9999.zhihudemo.service.API;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.model.entity.Ribao;
 import com.oeasy9999.zhihudemo.model.entity.Story;
@@ -127,9 +127,7 @@ public class RibaoFragment extends BaseFragment
     stories.add(0, tip);
     mStories.addAll(stories);
     adapter.setStories(mStories);
-    //ribao.setStories((ArrayList) stories);
     if (mData == null) mData = ribao;
-    //mData.addAll(storiesList);
     adapter.mShowFooter = true;
     if (first) {
       adapter.setData(ribao);
@@ -139,20 +137,6 @@ public class RibaoFragment extends BaseFragment
       adapter.notifyDataSetChanged();
     }
   }
-
-  //private String convertDate(String date) {
-  //  String today = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
-  //  if (today.equals(date)) {
-  //    return "今日热闻";
-  //  }
-  //  String result = date.substring(0, 4);
-  //  result += "年";
-  //  result += date.substring(4, 6);
-  //  result += "月";
-  //  result += date.substring(6, 8);
-  //  result += "日";
-  //  return result;
-  //}
 
   @Override public void hideProgress() {
     mSwipeRefreshWidget.setRefreshing(false);

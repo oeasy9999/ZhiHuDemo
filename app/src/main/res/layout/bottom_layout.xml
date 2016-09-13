@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/padding_10dp"
     android:paddingBottom="@dimen/padding_10dp"
     android:background="@drawable/bg_card"
-    app:layout_behavior="com.oeasy9999.zhihudemo.FooterBehavior">
+    app:layout_behavior="com.oeasy9999.zhihudemo.widget.FooterBehavior">
   <ImageView android:id="@+id/back"
       android:layout_width="@dimen/width_0dp"
       android:layout_weight="1"

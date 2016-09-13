@@ -6,13 +6,13 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.oeasy9999.zhihudemo.R;
 import com.oeasy9999.zhihudemo.ZhiHuApp;
 import com.oeasy9999.zhihudemo.model.entity.Zhuanlan;
 import com.oeasy9999.zhihudemo.mvp.interf.OnItemClickListener;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
+import com.oeasy9999.zhihudemo.widget.CircleImageView;
 import java.util.List;
 
 /**
@@ -38,13 +38,10 @@ public class ZhuanlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    //Log.i(TAG, "------------>");
     if (holder instanceof ItemViewHolder) {
       final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-      //Log.i(TAG, zhuanlanList.get(position).getName());
       itemViewHolder.zhuanlan = zhuanlanList.get(position);
-      //Log.i(TAG, itemViewHolder.zhuanlan.getName());
-      ImageUtils.load(context, itemViewHolder.zhuanlan.getAvatarUrl(), itemViewHolder.imgavatar);
+      ImageUtils.loadCircleImage(context, itemViewHolder.zhuanlan.getAvatarUrl(), itemViewHolder.imgavatar);
       itemViewHolder.txtName.setText(itemViewHolder.zhuanlan.getName());
       String strFunsCount = ZhiHuApp.appContext()
           .getResources()
@@ -69,7 +66,7 @@ public class ZhuanlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
   public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView imgavatar;
+    private CircleImageView imgavatar;
     private TextView txtName;
     private TextView txtFunsCount;
     private TextView txtArticleCount;
@@ -78,7 +75,7 @@ public class ZhuanlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public ItemViewHolder(View itemView) {
       super(itemView);
-      imgavatar = (ImageView) itemView.findViewById(R.id.avatar);
+      imgavatar = (CircleImageView) itemView.findViewById(R.id.avatar);
       txtName = (TextView) itemView.findViewById(R.id.txt_zhuanlan_name);
       txtFunsCount = (TextView) itemView.findViewById(R.id.txt_fans_count);
       txtArticleCount = (TextView) itemView.findViewById(R.id.txt_article_count);

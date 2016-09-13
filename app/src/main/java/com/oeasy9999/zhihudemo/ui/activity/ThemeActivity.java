@@ -26,6 +26,8 @@ import com.oeasy9999.zhihudemo.mvp.view.IView;
 import com.oeasy9999.zhihudemo.ui.adapter.ThemeAdapter;
 import com.oeasy9999.zhihudemo.utils.ImageUtils;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oeasy9999 on 2016/9/6.
@@ -43,8 +45,8 @@ public class ThemeActivity extends BaseActivity
 
   private NewsDetailPresenter themePresenter;
   private int id;
-  private static Zhuti zhuti;
-  private Serializable serializable;
+  private List<Story> stories = new ArrayList<>();
+  private ThemeAdapter adapter;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -90,12 +92,14 @@ public class ThemeActivity extends BaseActivity
     mSwipeRefreshWidget.setOnRefreshListener(this);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    adapter = new ThemeAdapter(ThemeActivity.this, stories, this);
+    mRecyclerView.setAdapter(adapter);
+
     onRefresh();
   }
 
   @Override public void showData(Theme data) {
-    ThemeAdapter adapter = new ThemeAdapter(ThemeActivity.this, data.getStories(), this);
-    mRecyclerView.setAdapter(adapter);
+    stories.addAll(data.getStories());
     adapter.notifyDataSetChanged();
   }
 
