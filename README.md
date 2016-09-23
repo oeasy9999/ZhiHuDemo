@@ -10,5 +10,12 @@
 参考知乎专栏，接口数据来源[知乎专栏API分析](https://marktony.github.io/2016/05/14/%E7%9F%A5%E4%B9%8E%E4%B8%93%E6%A0%8FAPI%E5%88%86%E6%9E%90/),为非官方开源所得，API的所有权归©知乎所有。
 
 ##**截图**
-![](screenshots/ribao1.png)
-![](screenshots/ribao2.png)
+![](screenshots/main.png)
+![](screenshots/ribao.png)
+![](screenshots/remen.png)
+![](screenshots/zhuti.png)
+![](screenshots/theme.png)
+![](screenshots/zhuanlan.png)
+![](screenshots/zhuanlanposts.png)
+![](screenshots/zhuanlandetail.png)
+![](screenshots/zhuanlancomments.png)
