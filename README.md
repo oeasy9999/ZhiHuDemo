@@ -22,4 +22,11 @@
 ![](screenshots/zhuanlancomments.png)
 
 ##**相关技术**
--
+-客户端使用MVP架构
+-网络层使用RxJava + Retrofit2
+-json解析使用Gson
+-图片加载使用了Glide
+-注解使用butterknife
+-Android5.0技术：Toolbar, RecyclerView, CardView, SwipeRefreshLayout
+-自定义CircleImageView组件
+
