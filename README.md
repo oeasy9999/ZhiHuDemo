@@ -11,3 +11,4 @@
 
 ##**截图**
 ![](screenshots/ribao.png)
+![](screenshots/ribao1.png)
