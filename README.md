@@ -30,3 +30,10 @@
 - Android5.0技术：Toolbar, RecyclerView, CardView, SwipeRefreshLayout
 - 自定义CircleImageView组件
 
+##**第三方库**
+- [RxJava](https://github.com/ReactiveX/RxJava)
+- [Retrofit](https://github.com/square/retrofit)
+- [Glide](https://github.com/bumptech/glide)
+- [Butter Knife](https://github.com/JakeWharton/butterknife)
+- [Convenientbanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
+
