@@ -10,4 +10,4 @@
 参考知乎专栏，接口数据来源[知乎专栏API分析](https://marktony.github.io/2016/05/14/%E7%9F%A5%E4%B9%8E%E4%B8%93%E6%A0%8FAPI%E5%88%86%E6%9E%90/),为非官方开源所得，API的所有权归©知乎所有。
 
 ##**截图**
-![0](https://github.com/oeasy9999/ZhiHuDemo/blob/master/screenshots/ribao.png)
+![](screenshots/ribao.png)
