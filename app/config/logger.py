@@ -85,4 +85,8 @@ def get_logger(name=None):
 然后定义了这么一个 get_logger 方法，接收一个参数 name。首先该方法拿到 name 之后，会到全局的 loggers 变量里面查找，loggers 变量是一个全局字典，如果有已经声明过的 logger，直接将其获取返回即可，不用再将其二次初始化。如果 loggers 里面没有找到 name 对应的 logger，那就进行创建即可。创建 logger 之后，可以为其添加各种对应的 Handler，如输出到控制台就用 StreamHandler，输出到文件就用 FileHandler 或 RotatingFileHandler，输出到 Elasticsearch 就用 CMRESHandler，分别配置好对应的信息即可。
 
 最后呢，将新建的 logger 保存到全局的 loggers 里面并返回即可，这样如果有同名的 logger 便可以直接查找 loggers 直接返回了。
+
+https://github.com/ydf0509/nb_log
+https://juejin.cn/post/6844903692915703815
+https://www.cnblogs.com/fnng/p/5648247.html
 """
